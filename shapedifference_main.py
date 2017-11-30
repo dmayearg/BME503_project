@@ -15,8 +15,39 @@ circle_data_sum  = circle_data_sens
 #                     0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,
 #                     0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,
 #                     0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0]
-
-
+#allmysens_square=[0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 
+#                  0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 
+#                  0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 
+#                  0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 
+#                  0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 
+#                  0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 
+#                  0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 
+#                  0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 
+#                  0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 
+#                  0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 
+#                  0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0]
+#for thisx in range (0,len(weird_squares1)):
+#    mypixel = weird_squares1[thisx]
+#    print thisx
+#    execfile("sense_filter_sum_MORE.py")
+#    allmysens_square[thisx]=curr_spike_sum
+#
+#mycount=0
+#for thisx in range(0,len(weird_squares1)):
+#    #print thisx
+#    if any((normal_data_sum[1]/10)<(allmysens_square[thisx]/20)):
+#        mycount=mycount+1
+#    else:
+#        print thisx
+#        ##print allmysens_square[thisx]
+# mycount=0
+#for thisx in range(0,len(weird_squares1)):
+#    #print thisx
+#    if any(0==allmysens_square[thisx][2]/6) | any(0==allmysens_square[thisx][3]/6):
+#        mycount=mycount+1
+#        print thisx
+#        print allmysens_square[thisx]
+#print mycount
 #normal_data_filt1  = normal_data_sens
 #triangle_data_filt1  = triangle_data_sens
 #square_data_filt1  = square_data_sens
@@ -63,36 +94,34 @@ triround_2=[11,12,13,14,
 triround_3=[15,16,17,18,97,98,101,102]
 
 
-squround_1=[mysqu,0,1,2,3,4,5,6,7,8,9,
-            10,11,12,13,
+
+
+squround_1=[mysqu,0,1,2,3,4,5,6,7,8,9,10,11,12,13,
+            48,49,50,51,
             65,66,67,68,
-            81,82,83,84]
+            73,74,75,76,
+            81,82,83,84,
+            89,90,91,92,
+            97,98,99,100,
+            105,106,107,108,
+            113,114,115,116]
 
-squround_2=[14,15,16,17,18,19,
-            20,21,22,23,24,25,
-            39,
-            40,41,42,43,44,45,46,47,48,49,
-            50,51,
-            69,
-            70,71,72,73,74,75,76,77,
-            89,
-            90,91,92,97,98,99,
-            100,105,106,107,108,
-            113,114,115,116,
-            121,122,123,124,129,
-            130,131,132,137,138,139,
-            140]
+squround_2=[14,15,16,17,18,19,20,21,22,23,24,25,
+            39,40,41,42,43,44,45,46,47,
+            69,70,71,72,
+            77,78,79,80,
+            85,86,87,88,
+            121,122,123,124,
+            129,130,131,132,
+            137,138,139,140]
 
-squround_3=[26,27,28,29,
-            30,31,32,33,34,35,36,37,38,
-            52,53,54,55,56,57,58,59,
-            60,61,62,63,64,
-            78,79,
-            80,85,86,87,88,
+squround_3=[26,27,28,29,30,31,32,33,34,35,36,37,38,
+            52,53,54,55,56,57,58,59,60,61,62,63,64,
             93,94,95,96,
-            101,102,103,104,109,
-            110,111,112,117,118,119,
-            120,125,126,127,128,
+            101,102,103,104,
+            109,110,111,112,
+            117,118,119,120,
+            125,126,127,128,
             133,134,135,136,
             141,142,143,144]
 
@@ -199,8 +228,17 @@ for thisx in range (0,len(squround_1)):
 #    square_data_sum[2][thisx]=curr_spike_sum
 
 
-    
-    
+#for thisx in range(0,len(square_data_sum[0])):
+#    print thisx
+#    print square_data_sum[0][thisx]/20
+#    
+#for thisx in range(0,len(square_data_sum[1])):
+#    print thisx
+#    print square_data_sum[1][thisx]/20
+#for thisx in range(0,len(square_data_sum[2])):
+#    print thisx
+#    print square_data_sum[2][thisx]/20
+#    
 #curr_spike_sens = numpy.array(spike_sensors.count).astype(int)
 #curr_spike_filt1 = numpy.array(spike_filt1.count).astype(int)
 #curr_spike_filt2 =  numpy.array(spike_filt2.count).astype(int)
