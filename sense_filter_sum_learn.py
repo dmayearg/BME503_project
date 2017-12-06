@@ -33,9 +33,15 @@ duration = 1000*ms
 #print "sum g_peak" 
 #print sumg_synmaxval
 
-figure(1)
-plt.imshow(mypixel,cmap='gray')
-plt.show()
+#figure(1)
+#plt.imshow(mypixel,cmap='gray')
+#plt.show()
+
+##############################################################################
+################################## NEURONS ##################################
+##############################################################################
+
+
 
 sensor_eqs = '''
 dv/dt = ((0.04*v*v) + ( 5*v) + (140) - u + mag*I)/ms : 1
@@ -148,7 +154,7 @@ sumneur.tau_decay = sum_tau_decay
 
 
 
-midneur16 = NeuronGroup(8, sum_equ, clock=Clock(0.2*ms), method='euler',threshold = 'v >= 30', 
+midneur16 = NeuronGroup(10, sum_equ, clock=Clock(0.2*ms), method='euler',threshold = 'v >= 30', 
             reset = '''v = c; u = u + d ''')
 midneur16.v = c
 midneur16.u = c*b
@@ -262,49 +268,58 @@ midsyn8 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 
 midsyn8.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[7])
 midsyn8.g_synmax=weight16[7]
 
+midsyn9 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midsyn9.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[8])
+midsyn9.g_synmax=weight16[8]
+
+midsyn10 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midsyn10.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[9])
+midsyn10.g_synmax=weight16[9]
+
 shapesyn1 = Synapses(midneur16, whichshape16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-shapesyn1.connect(i=[0,1,2,3,4,5,6,7],j=[0])
+shapesyn1.connect(i=[0,1,2,3,4,5,6,7,8,9],j=[0])
 shapesyn1.g_synmax=weightsout[0]
 
 shapesyn2 = Synapses(midneur16, whichshape16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-shapesyn2.connect(i=[0,1,2,3,4,5,6,7],j=[1])
+shapesyn2.connect(i=[0,1,2,3,4,5,6,7,8,9],j=[1])
 shapesyn2.g_synmax=weightsout[1]
 
 shapesyn3 = Synapses(midneur16, whichshape16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-shapesyn3.connect(i=[0,1,2,3,4,5,6,7],j=[2])
+shapesyn3.connect(i=[0,1,2,3,4,5,6,7,8,9],j=[2])
 shapesyn3.g_synmax=weightsout[2]
 
 ################################## STATE MONITORS #############################
 
-MS = StateMonitor(sensors, ('v', 'I'), record=True)
+#MS = StateMonitor(sensors, ('v', 'I'), record=True)
 #Mfilt1=StateMonitor(filt1, ('v','synI_exc'), record=True)
 #Mfilt2=StateMonitor(filt2, ('v'), record=True)
 #Mfilt3=StateMonitor(filt3, ('v'), record=True)
 #Mfilt4=StateMonitor(filt4, ('v'), record=True)
-Msum=StateMonitor(sumneur, ('v'), record=True)
+#Msum=StateMonitor(sumneur, ('v'), record=True)
 
 #Mmid=StateMonitor(midneur16, ('v'), record=True)
 #Mshape=StateMonitor(whichshape16, ('v'), record=True)
 
-spike_sensors = SpikeMonitor(sensors)
-spike_filt1 = SpikeMonitor(filt1)
-spike_filt2 = SpikeMonitor(filt2)
-spike_filt3 = SpikeMonitor(filt3)
-spike_filt4 = SpikeMonitor(filt4)
+#spike_sensors = SpikeMonitor(sensors)
+#spike_filt1 = SpikeMonitor(filt1)
+#spike_filt2 = SpikeMonitor(filt2)
+#spike_filt3 = SpikeMonitor(filt3)
+#spike_filt4 = SpikeMonitor(filt4)
 spike_sum = SpikeMonitor(sumneur)
 
 spike_mid16 = SpikeMonitor(midneur16)
 spike_shape16 = SpikeMonitor(whichshape16)
 
-run(duration,report='text')
+#run(duration,report='text')
+run(duration)
 
 #print spike_sensors.count
-curr_spike_sens = numpy.array(spike_sensors.count).astype(int).reshape((6,6))
-curr_spike_filt1 = numpy.array(spike_filt1.count).astype(int).reshape((4,4))
-curr_spike_filt2 =  numpy.array(spike_filt2.count).astype(int).reshape((4,4))
-curr_spike_filt3 =  numpy.array(spike_filt3.count).astype(int).reshape((4,4))
-curr_spike_filt4 =  numpy.array(spike_filt4.count).astype(int).reshape((4,4))
-curr_spike_sum =  numpy.array(spike_sum.count).astype(int).reshape((4,4))
+#curr_spike_sens = numpy.array(spike_sensors.count).astype(int).reshape((6,6))
+#curr_spike_filt1 = numpy.array(spike_filt1.count).astype(int).reshape((4,4))
+#curr_spike_filt2 =  numpy.array(spike_filt2.count).astype(int).reshape((4,4))
+#curr_spike_filt3 =  numpy.array(spike_filt3.count).astype(int).reshape((4,4))
+#curr_spike_filt4 =  numpy.array(spike_filt4.count).astype(int).reshape((4,4))
+#curr_spike_sum =  numpy.array(spike_sum.count).astype(int).reshape((4,4))
         
 #print curr_spike_sens
 #print curr_spike_filt1
@@ -318,50 +333,60 @@ print numpy.array(spike_mid16.count).tolist()
 print numpy.array(spike_shape16.count).tolist()
 
 
+weightsout=numpy.array(weightsout)
+
+#mysumpercent=(1/(1+exp(-(((numpy.array(spike_sum.count).astype(float)/5)-7)))))
+#mymidpercent=(1/(1+exp(-(((numpy.array(spike_mid16.count).astype(float)/5)-7)))))
+
+#mysumpercent=(1/(1+exp(-(log(numpy.array(spike_sum.count)+1)*2-7))))
+#mymidpercent=(1/(1+exp(-(log(numpy.array(spike_mid16.count)+1)*2-7))))
+
+mysumpercent=(numpy.array(spike_sum.count).astype(float).tolist()/sum(spike_sum.count))
+mymidpercent=(numpy.array(spike_mid16.count).astype(float).tolist()/sum(spike_mid16.count))
+myshapepercent=(numpy.array(spike_shape16.count).astype(float).tolist()/(sum(spike_shape16.count)+1))
+
+myerror=((myshapepercent[0]-idealans[0])**2+(myshapepercent[1]-idealans[1])**2+(myshapepercent[2]-idealans[2])**2) ## for triangle
+print int(100*myerror)
+
+gradout=myshapepercent*(1-myshapepercent)*(idealans-myshapepercent)
+gradmid=mymidpercent*(1-mymidpercent)*((gradout[0]*weightsout[0])+(gradout[1]*weightsout[1])+(gradout[2]*weightsout[2]))
+
+weightsout[0]=clip(weightsout[0]+(0.01*mymidpercent*gradout[0]),-0.19,0.19)
+weightsout[1]=clip(weightsout[1]+(0.01*mymidpercent*gradout[1]),-0.19,0.19)
+weightsout[2]=clip(weightsout[2]+(0.01*mymidpercent*gradout[2]),-0.19,0.19)
+
+weight16[0]=clip(weight16[0]+(0.05*mysumpercent*gradmid[0]),-0.19,0.19)
+weight16[1]=clip(weight16[1]+(0.05*mysumpercent*gradmid[1]),-0.19,0.19)
+weight16[2]=clip(weight16[2]+(0.05*mysumpercent*gradmid[2]),-0.19,0.19)
+weight16[3]=clip(weight16[3]+(0.05*mysumpercent*gradmid[3]),-0.19,0.19)
+weight16[4]=clip(weight16[4]+(0.05*mysumpercent*gradmid[4]),-0.19,0.19)
+weight16[5]=clip(weight16[5]+(0.05*mysumpercent*gradmid[5]),-0.19,0.19)
+weight16[6]=clip(weight16[6]+(0.05*mysumpercent*gradmid[6]),-0.19,0.19)
+weight16[7]=clip(weight16[7]+(0.05*mysumpercent*gradmid[7]),-0.19,0.19)
+weight16[8]=clip(weight16[8]+(0.05*mysumpercent*gradmid[8]),-0.19,0.19)
+weight16[9]=clip(weight16[9]+(0.05*mysumpercent*gradmid[9]),-0.19,0.19)
+#myerror=((myans[0])**2+(myans[1]-1)**2+(myans[2])**2) ## for square
+#myerror=((myans[0])**2+(myans[1])**2+(myans[2]-1)**2) ## for circle
+
+
+#gradmid[0]=mymidpercent[0]*(1-mymidpercent)*((gradout[0]*weightsout[0][0])+(gradout[1]*weightsout[1][0])+(gradout[2]*weightsout[2][0]))
+#gradmid[1]=mymidpercent[1]*(1-mymidpercent)*((gradout[0]*weightsout[0][1])+(gradout[1]*weightsout[1][1])+(gradout[2]*weightsout[2][1]))
+#gradmid[2]=mymidpercent[2]*(1-mymidpercent)*((gradout[0]*weightsout[0][2])+(gradout[1]*weightsout[1][2])+(gradout[2]*weightsout[2][2]))     
+#gradmid[3]=mymidpercent[3]*(1-mymidpercent)*((gradout[0]*weightsout[0][3])+(gradout[1]*weightsout[1][3])+(gradout[2]*weightsout[2][3]))
+#gradmid[4]=mymidpercent[4]*(1-mymidpercent)*((gradout[0]*weightsout[0][4])+(gradout[1]*weightsout[1][4])+(gradout[2]*weightsout[2][4]))
+#gradmid[5]=mymidpercent[5]*(1-mymidpercent)*((gradout[0]*weightsout[0][5])+(gradout[1]*weightsout[1][5])+(gradout[2]*weightsout[2][5]))     
+#gradmid[6]=mymidpercent[6]*(1-mymidpercent)*((gradout[0]*weightsout[0][6])+(gradout[1]*weightsout[1][6])+(gradout[2]*weightsout[2][6]))
+#gradmid[7]=mymidpercent[7]*(1-mymidpercent)*((gradout[0]*weightsout[0][7])+(gradout[1]*weightsout[1][7])+(gradout[2]*weightsout[2][7]))
 
 
 
 
-#mysumpercent=(numpy.array(spike_sum.count).astype(float).tolist()/sum(spike_sum.count))
-#mymidpercent=(numpy.array(spike_mid16.count).astype(float).tolist()/sum(spike_mid16.count))
-#myshapepercent=(numpy.array(spike_shape16.count).astype(float).tolist()/sum(spike_shape16.count))
-##mysumpercent=(numpy.array(spike_sum.count).astype(float).tolist()/sum(spike_sum.count)).tolist()
-##mymidpercent=(numpy.array(spike_mid16.count).astype(float).tolist()/sum(spike_mid16.count)).tolist()
-##myshapepercent=(numpy.array(spike_shape16.count).astype(float).tolist()/sum(spike_shape16.count)).tolist()
-#myerror=((myshapepercent[0]-idealans[0])**2+(myshapepercent[1]-idealans[1])**2+(myshapepercent[2]-idealans[2])**2) ## for triangle
-##myerror=((myans[0])**2+(myans[1]-1)**2+(myans[2])**2) ## for square
-##myerror=((myans[0])**2+(myans[1])**2+(myans[2]-1)**2) ## for circle
-#gradout=myshapepercent*(1-myshapepercent)*(idealans-myshapepercent)
-#gradmid=mymidpercent*(1-mymidpercent)*((gradout[0]*weightsout[0])+(gradout[1]*weightsout[1])+(gradout[2]*weightsout[2]))
-#
-##gradmid[0]=mymidpercent[0]*(1-mymidpercent)*((gradout[0]*weightsout[0][0])+(gradout[1]*weightsout[1][0])+(gradout[2]*weightsout[2][0]))
-##gradmid[1]=mymidpercent[1]*(1-mymidpercent)*((gradout[0]*weightsout[0][1])+(gradout[1]*weightsout[1][1])+(gradout[2]*weightsout[2][1]))
-##gradmid[2]=mymidpercent[2]*(1-mymidpercent)*((gradout[0]*weightsout[0][2])+(gradout[1]*weightsout[1][2])+(gradout[2]*weightsout[2][2]))     
-##gradmid[3]=mymidpercent[3]*(1-mymidpercent)*((gradout[0]*weightsout[0][3])+(gradout[1]*weightsout[1][3])+(gradout[2]*weightsout[2][3]))
-##gradmid[4]=mymidpercent[4]*(1-mymidpercent)*((gradout[0]*weightsout[0][4])+(gradout[1]*weightsout[1][4])+(gradout[2]*weightsout[2][4]))
-##gradmid[5]=mymidpercent[5]*(1-mymidpercent)*((gradout[0]*weightsout[0][5])+(gradout[1]*weightsout[1][5])+(gradout[2]*weightsout[2][5]))     
-##gradmid[6]=mymidpercent[6]*(1-mymidpercent)*((gradout[0]*weightsout[0][6])+(gradout[1]*weightsout[1][6])+(gradout[2]*weightsout[2][6]))
-##gradmid[7]=mymidpercent[7]*(1-mymidpercent)*((gradout[0]*weightsout[0][7])+(gradout[1]*weightsout[1][7])+(gradout[2]*weightsout[2][7]))
-#
-#
-#
-#
-#weightsout[0]=weightsout[0]+(0.1*mymidpercent*grad_out[0])
-#weightsout[1]=weightsout[1]+(0.1*mymidpercent*grad_out[1])
-#weightsout[2]=weightsout[2]+(0.1*mymidpercent*grad_out[2])
-#
-##weightchangemid[0]=0.1*mysumpercent*gradmid[0]
-##weightchangemid[1]=0.1*mysumpercent*gradmid[1]
-##weightchangemid[2]=0.1*mysumpercent*gradmid[2]
-#
-#weight16[0]=weight16[0]+(0.1*mysumpercent*gradmid[0])
-#weight16[1]=weight16[1]+(0.1*mysumpercent*gradmid[1])
-#weight16[2]=weight16[2]+(0.1*mysumpercent*gradmid[2])
-#weight16[3]=weight16[3]+(0.1*mysumpercent*gradmid[3])
-#weight16[4]=weight16[4]+(0.1*mysumpercent*gradmid[4])
-#weight16[5]=weight16[5]+(0.1*mysumpercent*gradmid[5])
-#weight16[6]=weight16[6]+(0.1*mysumpercent*gradmid[6])
-#weight16[7]=weight16[7]+(0.1*mysumpercent*gradmid[7])
+
+#weightchangemid[0]=0.1*mysumpercent*gradmid[0]
+#weightchangemid[1]=0.1*mysumpercent*gradmid[1]
+#weightchangemid[2]=0.1*mysumpercent*gradmid[2]
+
+
 
 
 #print "figure 2 shows the sensor neurons firing"
