@@ -6,6 +6,8 @@
 ## declare the shape 
 #mypixel = triround_1[20]
 #figure(1)
+
+
 plt.imshow(mypixel,cmap='gray')
 plt.show()
 
@@ -308,9 +310,7 @@ print numpy.array(spike_mid16.count).tolist()
 #weightsout=numpy.array(weightsout)
 myshapepercent=(numpy.array(spike_shape16.count).astype(float).tolist()/(sum(spike_shape16.count)))
 myerror=((myshapepercent[0]-idealans[0])**2+(myshapepercent[1]-idealans[1])**2+(myshapepercent[2]-idealans[2])**2) ## for triangle
-
-print numpy.array(spike_shape16.count).tolist(), myshapepercent
-print int(100*myerror)
+print numpy.array(spike_shape16.count).tolist(), myshapepercent, int(100*myerror) 
 
 
 
