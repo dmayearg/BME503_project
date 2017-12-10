@@ -85,20 +85,19 @@ spike_shape16 = SpikeMonitor(whichshape16)
 
 run(duration)
 
-mysumpercent=(1/(1+exp(-(((numpy.array(spike_sum.count).astype(float)/5)-7)))))
-mymidpercent=(1/(1+exp(-(((numpy.array(spike_mid16.count).astype(float)/5)-7)))))
 
-#mysumpercent=(1/(1+exp(-(log(numpy.array(spike_sum.count)+1)*2-7))))
-#mymidpercent=(1/(1+exp(-(log(numpy.array(spike_mid16.count)+1)*2-7))))
+##### yall dont need this part 
+#mysumpercent=(1/(1+exp(-(((numpy.array(spike_sum.count).astype(float)/5)-7)))))
+#mymidpercent=(1/(1+exp(-(((numpy.array(spike_mid16.count).astype(float)/5)-7)))))
+
+mysumpercent=(1/(1+exp(-(log(numpy.array(spike_sum.count)+1)*2-7))))
+mymidpercent=(1/(1+exp(-(log(numpy.array(spike_mid16.count)+1)*2-7))))
 
 #mysumpercent=(numpy.array(spike_sum.count).astype(float).tolist()/sum(spike_sum.count))
 #mymidpercent=(numpy.array(spike_mid16.count).astype(float).tolist()/sum(spike_mid16.count))
 
 myshapepercent=(numpy.array(spike_shape16.count).astype(float).tolist()/(sum(spike_shape16.count)+1))
-
 myerror=((myshapepercent[0]-idealans[0])**2+(myshapepercent[1]-idealans[1])**2+(myshapepercent[2]-idealans[2])**2) ## for triangle
-
-
 gradout=myshapepercent*(1-myshapepercent)*(idealans-myshapepercent)
 gradmid=mymidpercent*(1-mymidpercent)*((gradout[0]*weightsout[0])+(gradout[1]*weightsout[1])+(gradout[2]*weightsout[2]))
 
@@ -118,14 +117,5 @@ weight16[8]=clip(weight16[8]+(0.05*mysumpercent*gradmid[8]),-0.2,0.2)
 weight16[9]=clip(weight16[9]+(0.05*mysumpercent*gradmid[9]),-0.2,0.2)
 
 
-#print numpy.array(spike_sum.count).tolist()  #, numpy.array(spike_mid16.count).tolist(), numpy.array(spike_shape16.count).tolist()
-#print numpy.array(spike_mid16.count).tolist()
-#print numpy.array(spike_shape16.count).tolist()
-#print int(100*myerror)
-
-#print numpy.array(spike_sum.count).tolist()
-#print numpy.array(spike_mid16.count).tolist()
-#print numpy.array(spike_shape16.count).tolist()
-#print int(100*myerror)
 show()
 

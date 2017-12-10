@@ -2,10 +2,8 @@
 #from brian2 import *
 #import matplotlib.pyplot as plt
 
-#execfile("shapedata.py") 
 
 ## fast spiking izhikevich model 
-# any stimulus above 4 will make this model spike
 a = 0.1
 b = 0.2
 c = -65
@@ -16,10 +14,6 @@ filt_tau_decay=2*ms
 sum_tau_decay=2*ms
 
 
-
-
-### receiving neuron is the row number
-
 sensormag=2.2 ## the very minimum is 1.3 for it to fire with 3 inputs to make sensor neuron fire
 ## to fire with 2 input "on" is about 2.2
 filtg_synmaxval=0.15 ##// if this is too low there is no difference between circ and square
@@ -28,14 +22,7 @@ sumg_synmaxval=0.06
 
 duration = 1000*ms
 
-#print "filter_synmax"
-#print filtg_synmaxval
-#print "sum g_peak" 
-#print sumg_synmaxval
 
-#figure(1)
-#plt.imshow(mypixel,cmap='gray')
-#plt.show()
 
 ##############################################################################
 ################################## NEURONS ##################################
@@ -65,17 +52,7 @@ mag:1
 '''
 
 
-###sensors 
-# 0  1  2  3  4 
-# 5  6  7  8  9 
-# 10 11 12 13 14
-# 15 16 17 18 19
-# 20 21 22 23 24
 
-## each neuron has these pixels 
-## x0 x1 x2
-## x3 x4 x5
-## x6 x7 x8
 sensors = NeuronGroup(36, sensor_eqs, clock=Clock(0.2*ms), method='euler',threshold = 'v >= 30', 
             reset = '''v = c; u = u + d ''')
 sensors.v = c
@@ -291,43 +268,18 @@ shapesyn3.g_synmax=weightsout[2]
 ################################## STATE MONITORS #############################
 
 #MS = StateMonitor(sensors, ('v', 'I'), record=True)
-#Mfilt1=StateMonitor(filt1, ('v','synI_exc'), record=True)
-#Mfilt2=StateMonitor(filt2, ('v'), record=True)
-#Mfilt3=StateMonitor(filt3, ('v'), record=True)
-#Mfilt4=StateMonitor(filt4, ('v'), record=True)
 #Msum=StateMonitor(sumneur, ('v'), record=True)
-
 #Mmid=StateMonitor(midneur16, ('v'), record=True)
 #Mshape=StateMonitor(whichshape16, ('v'), record=True)
 
 #spike_sensors = SpikeMonitor(sensors)
-#spike_filt1 = SpikeMonitor(filt1)
-#spike_filt2 = SpikeMonitor(filt2)
-#spike_filt3 = SpikeMonitor(filt3)
-#spike_filt4 = SpikeMonitor(filt4)
 spike_sum = SpikeMonitor(sumneur)
-
 spike_mid16 = SpikeMonitor(midneur16)
 spike_shape16 = SpikeMonitor(whichshape16)
 
-#run(duration,report='text')
 run(duration)
 
-#print spike_sensors.count
-#curr_spike_sens = numpy.array(spike_sensors.count).astype(int).reshape((6,6))
-#curr_spike_filt1 = numpy.array(spike_filt1.count).astype(int).reshape((4,4))
-#curr_spike_filt2 =  numpy.array(spike_filt2.count).astype(int).reshape((4,4))
-#curr_spike_filt3 =  numpy.array(spike_filt3.count).astype(int).reshape((4,4))
-#curr_spike_filt4 =  numpy.array(spike_filt4.count).astype(int).reshape((4,4))
-#curr_spike_sum =  numpy.array(spike_sum.count).astype(int).reshape((4,4))
-        
-#print curr_spike_sens
-#print curr_spike_filt1
-#print curr_spike_filt2
-#print curr_spike_filt3
-#print curr_spike_filt4
-#print curr_spike_sum
-#print spike_mid16.count
+
 print numpy.array(spike_sum.count).tolist()
 print numpy.array(spike_mid16.count).tolist()
 print numpy.array(spike_shape16.count).tolist()
@@ -335,11 +287,13 @@ print numpy.array(spike_shape16.count).tolist()
 
 weightsout=numpy.array(weightsout)
 
-mysumpercent=(1/(1+exp(-(((numpy.array(spike_sum.count).astype(float)/5)-7)))))
-mymidpercent=(1/(1+exp(-(((numpy.array(spike_mid16.count).astype(float)/5)-7)))))
 
-#mysumpercent=(1/(1+exp(-(log(numpy.array(spike_sum.count)+1)*2-7))))
-#mymidpercent=(1/(1+exp(-(log(numpy.array(spike_mid16.count)+1)*2-7))))
+##### yall dont need this part 
+#mysumpercent=(1/(1+exp(-(((numpy.array(spike_sum.count).astype(float)/5)-7)))))
+#mymidpercent=(1/(1+exp(-(((numpy.array(spike_mid16.count).astype(float)/5)-7)))))
+
+mysumpercent=(1/(1+exp(-(log(numpy.array(spike_sum.count)+1)*2-7))))
+mymidpercent=(1/(1+exp(-(log(numpy.array(spike_mid16.count)+1)*2-7))))
 
 #mysumpercent=(numpy.array(spike_sum.count).astype(float).tolist()/sum(spike_sum.count))
 #mymidpercent=(numpy.array(spike_mid16.count).astype(float).tolist()/sum(spike_mid16.count))
@@ -347,10 +301,8 @@ myshapepercent=(numpy.array(spike_shape16.count).astype(float).tolist()/(sum(spi
 
 myerror=((myshapepercent[0]-idealans[0])**2+(myshapepercent[1]-idealans[1])**2+(myshapepercent[2]-idealans[2])**2) ## for triangle
 print int(100*myerror)
-
 gradout=myshapepercent*(1-myshapepercent)*(idealans-myshapepercent)
 gradmid=mymidpercent*(1-mymidpercent)*((gradout[0]*weightsout[0])+(gradout[1]*weightsout[1])+(gradout[2]*weightsout[2]))
-
 weightsout[0]=clip(weightsout[0]+(0.01*mymidpercent*gradout[0]),-0.2,0.2)
 weightsout[1]=clip(weightsout[1]+(0.01*mymidpercent*gradout[1]),-0.2,0.2)
 weightsout[2]=clip(weightsout[2]+(0.01*mymidpercent*gradout[2]),-0.2,0.2)
@@ -365,26 +317,6 @@ weight16[6]=clip(weight16[6]+(0.05*mysumpercent*gradmid[6]),-0.2,0.2)
 weight16[7]=clip(weight16[7]+(0.05*mysumpercent*gradmid[7]),-0.2,0.2)
 weight16[8]=clip(weight16[8]+(0.05*mysumpercent*gradmid[8]),-0.2,0.2)
 weight16[9]=clip(weight16[9]+(0.05*mysumpercent*gradmid[9]),-0.2,0.2)
-#myerror=((myans[0])**2+(myans[1]-1)**2+(myans[2])**2) ## for square
-#myerror=((myans[0])**2+(myans[1])**2+(myans[2]-1)**2) ## for circle
-
-
-#gradmid[0]=mymidpercent[0]*(1-mymidpercent)*((gradout[0]*weightsout[0][0])+(gradout[1]*weightsout[1][0])+(gradout[2]*weightsout[2][0]))
-#gradmid[1]=mymidpercent[1]*(1-mymidpercent)*((gradout[0]*weightsout[0][1])+(gradout[1]*weightsout[1][1])+(gradout[2]*weightsout[2][1]))
-#gradmid[2]=mymidpercent[2]*(1-mymidpercent)*((gradout[0]*weightsout[0][2])+(gradout[1]*weightsout[1][2])+(gradout[2]*weightsout[2][2]))     
-#gradmid[3]=mymidpercent[3]*(1-mymidpercent)*((gradout[0]*weightsout[0][3])+(gradout[1]*weightsout[1][3])+(gradout[2]*weightsout[2][3]))
-#gradmid[4]=mymidpercent[4]*(1-mymidpercent)*((gradout[0]*weightsout[0][4])+(gradout[1]*weightsout[1][4])+(gradout[2]*weightsout[2][4]))
-#gradmid[5]=mymidpercent[5]*(1-mymidpercent)*((gradout[0]*weightsout[0][5])+(gradout[1]*weightsout[1][5])+(gradout[2]*weightsout[2][5]))     
-#gradmid[6]=mymidpercent[6]*(1-mymidpercent)*((gradout[0]*weightsout[0][6])+(gradout[1]*weightsout[1][6])+(gradout[2]*weightsout[2][6]))
-#gradmid[7]=mymidpercent[7]*(1-mymidpercent)*((gradout[0]*weightsout[0][7])+(gradout[1]*weightsout[1][7])+(gradout[2]*weightsout[2][7]))
-
-
-
-
-
-#weightchangemid[0]=0.1*mysumpercent*gradmid[0]
-#weightchangemid[1]=0.1*mysumpercent*gradmid[1]
-#weightchangemid[2]=0.1*mysumpercent*gradmid[2]
 
 
 
@@ -453,13 +385,4 @@ weight16[9]=clip(weight16[9]+(0.05*mysumpercent*gradmid[9]),-0.2,0.2)
 
 
 show()
-
-#<spikemonitor.count:   array([17, 17, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30], dtype=int32)>
-#<spikemonitor_2.count: array([ 0,  0,  0,  0,  0,  0,  0,  0, 17, 30, 30, 17, 30, 17, 17, 30], dtype=int32)>
-#<spikemonitor_1.count: array([ 0,  0,  0,  0,  0,  0,  0,  0,  0, 30, 30,  0, 30,  0,  0, 30], dtype=int32)>
-
-
-#<spikemonitor_1.count: array([60, 60, 61, 61], dtype=int32)>
-#<spikemonitor.count:   array([60, 60, 51, 51], dtype=int32)>
-#<spikemonitor_2.count: array([60, 60, 30, 30], dtype=int32)>
 

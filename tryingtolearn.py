@@ -146,37 +146,7 @@ for thisx in range(0,len(squround_3)):
     currentmatrix=weird_squares1[squround_3[thisx]]
     squround_3[thisx]=currentmatrix
     
-#for thisx in range (0,3):
-#print "triangle"
-#mypixel = shapes_normal[0]
-#idealans=[1,0,0]
-#execfile("sense_filter_sum_learn.py")
-#mypixel = triround_1[0]
-#execfile("sense_filter_sum_learn.py")
-#print "square"
-#mypixel = shapes_normal[1]
-#idealans=[0,1,0]
-#execfile("sense_filter_sum_learn.py")
-#print "circle"
-#mypixel = shapes_normal[2]
-#idealans=[0,0,1]
-#execfile("sense_filter_sum_learn.py")
-#print " "
-#for myrunningcount in range(0,100):
-#    print myrunningcount
-#    mypixel = shapes_normal[0]
-#    idealans=[1,0,0]
-#    execfile("sense_filter_sum_learn.py")
-#    mypixel = triround_1[0]
-#    execfile("sense_filter_sum_learn.py")
-#    mypixel = shapes_normal[1]
-#    idealans=[0,1,0]
-#    execfile("sense_filter_sum_learn.py")
-#    mypixel = shapes_normal[2]
-#    idealans=[0,0,1]
-#    execfile("sense_filter_sum_learn.py")
-#    print " " 
-    
+
 thisroundoferror=[0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,0,0]
 
 
@@ -338,55 +308,7 @@ for myrunningcount in range(0,20):
         thisroundoferror.append(int(100*myerror))
         print thisroundoferror
 
-#[34, 34, 34, 34, 34, 34, 32, 32, 0, 34, 34, 20, 34, 0, 20, 34]  #triangle
-#[0, 0, 0, 0, 0, 0, 0, 0, 20, 34, 34, 20, 34, 20, 20, 34]        #square
-#[0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 34, 0, 34, 0, 0, 34]            #circle
-#
-#[34, 34, 34, 34, 34, 34, 32, 32, 0, 34, 34, 20, 34, 0, 20, 34]  #triangle
-#[34, 34, 34, 34, 32, 32, 34, 34, 20, 34, 34, 0, 34, 20, 0, 34]  #tri
-#[34, 32, 34, 32, 34, 34, 34, 34, 0, 34, 34, 20, 34, 20, 0, 34]
-#[32, 34, 32, 34, 34, 34, 34, 34, 20, 34, 34, 0, 34, 0, 20, 34]
-#[33, 33, 29, 29, 33, 33, 33, 33, 0, 63, 33, 21, 63, 0, 21, 33]
-#[34, 34, 33, 33, 33, 33, 34, 34, 0, 34, 34, 34, 34, 0, 34, 34]
-#
-#[0, 0, 0, 0, 0, 0, 0, 0, 20, 34, 34, 20, 34, 20, 20, 34] # square
-#[1, 1, 1, 1, 1, 1, 1, 1, 39, 66, 66, 39, 66, 39, 39, 66]
-#[1, 1, 1, 1, 1, 1, 1, 1, 21, 66, 66, 21, 66, 21, 21, 66]
-#[0, 0, 1, 1, 1, 0, 1, 0, 20, 34, 66, 20, 24, 20, 39, 24]
-#[1, 1, 0, 0, 0, 1, 0, 1, 20, 66, 34, 20, 24, 39, 20, 24]
-#[0, 0, 1, 1, 0, 1, 0, 1, 34, 24, 24, 21, 34, 6, 6, 66]
-#[1, 1, 0, 0, 1, 0, 1, 0, 21, 24, 24, 34, 66, 6, 6, 34]
-#[1, 1, 1, 1, 1, 1, 1, 1, 47, 66, 87, 47, 66, 39, 58, 66]
-#[1, 1, 1, 1, 1, 1, 1, 1, 47, 87, 66, 47, 66, 58, 39, 66]
-#
-#[0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 34, 0, 34, 0, 0, 34] ## all circles
 
-
-
-#[34, 34, 34, 34, 34, 34, 32, 32, 0, 34, 34, 20, 34, 0, 20, 34] # circle
-#[34, 34, 34, 34, 32, 32, 34, 34, 20, 34, 34, 0, 34, 20, 0, 34] # circle1
-#[33, 33, 29, 29, 33, 33, 33, 33, 0, 63, 33, 21, 63, 0, 21, 33] # circle4
-#
-#[0, 0, 0, 0, 0, 0, 0, 0, 20, 34, 34, 20, 34, 20, 20, 34] ## square
-#[1, 1, 1, 1, 1, 1, 1, 1, 39, 66, 66, 39, 66, 39, 39, 66] ## square1
-#
-#[0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 34, 0, 34, 0, 0, 34]  ## circle #also all the circles are the same 
-
-#for myrunningcount in range(0,1000):
-#    mypixel = shapes_normal[0]
-#    print "triangle"
-#    idealans=[1,0,0]
-#    execfile("sense_filter_sum_learn.py")
-    
-    
-    
-#for thisx in range (0,len(triround_1)):
-#    mypixel = triround_1[thisx]
-#    print thisx
-#    idealans=[1,0,0]
-#    execfile("sense_filter_sum_learn.py")
-        
-        
         
 ####### DOOOO THIS THING AFTER YOU RUN EVERYTHING 
 
@@ -431,71 +353,7 @@ for myrunningcount in range(0,20):
 #    print " "
 #    
     
-    
-
-#print (numpy.array(mynew_weight16_neverused[33][0])*100).astype(int)==(numpy.array(mynew_weight16_neverused[34][0])*100).astype(int)
-#print (numpy.array(mynew_weight16_neverused[33][1])*100).astype(int)==(numpy.array(mynew_weight16_neverused[34][1])*100).astype(int)
-#print (numpy.array(mynew_weight16_neverused[33][2])*100).astype(int)==(numpy.array(mynew_weight16_neverused[34][2])*100).astype(int)
-#print (numpy.array(mynew_weight16_neverused[33][3])*100).astype(int)==(numpy.array(mynew_weight16_neverused[34][3])*100).astype(int)
-#print (numpy.array(mynew_weight16_neverused[33][4])*100).astype(int)==(numpy.array(mynew_weight16_neverused[34][4])*100).astype(int)
-#print (numpy.array(mynew_weight16_neverused[33][5])*100).astype(int)==(numpy.array(mynew_weight16_neverused[34][5])*100).astype(int)
-#print (numpy.array(mynew_weight16_neverused[33][6])*100).astype(int)==(numpy.array(mynew_weight16_neverused[34][6])*100).astype(int)
-#print (numpy.array(mynew_weight16_neverused[33][7])*100).astype(int)==(numpy.array(mynew_weight16_neverused[34][7])*100).astype(int)
-
-
-
-
-### after 250 runs of the original 
-#[array([-0.07638602, -0.05685437,  0.02311014,  0.06310116, -0.00695437,
-#         0.11307102, -0.07682737, -0.01672541,  0.15      ,  0.00922845,
-#         0.14984146,  0.15      , -0.04486159,  0.15      ,  0.02579504,
-#         0.01537461]),
-# array([-0.0281322 , -0.03884103, -0.06884457, -0.08885465, -0.03943497,
-#         0.10059907, -0.02924515, -0.04909465,  0.0686469 ,  0.15      ,
-#         0.12698184, -0.02171466,  0.15      ,  0.15      ,  0.03039247,
-#         0.15      ]),
-# array([ 0.0774183 ,  0.1499996 ,  0.01809151,  0.12816511,  0.1499996 ,
-#        -0.04120937,  0.01852243,  0.04840599, -0.00811033,  0.00377619,
-#        -0.02709695,  0.00508506,  0.06343131,  0.04262318,  0.1287957 ,
-#        -0.01624666]),
-# array([ 0.05900154,  0.05025042,  0.03004574,  0.06009578,  0.14999575,
-#         0.09090122, -0.0294264 ,  0.14999824, -0.12439125,  0.15      ,
-#         0.15      , -0.12195403,  0.15      , -0.03172398,  0.03063798,
-#         0.15      ]),
-# array([-0.04507863,  0.08442384, -0.05532698, -0.01540112, -0.09561447,
-#        -0.09561312,  0.06436555,  0.00443747,  0.06645891,  0.14560551,
-#         0.07594635,  0.02593867,  0.15      ,  0.08220471,  0.07918231,
-#         0.04594764]),
-# array([-0.04844359,  0.05157442,  0.12157861,  0.071573  , -0.06837966,
-#         0.11162204, -0.07839086, -0.0783931 , -0.07167353,  0.09171741,
-#         0.15      ,  0.13833878,  0.09210499,  0.10823562, -0.04217088,
-#         0.15      ]),
-# array([-0.04675499,  0.07239357, -0.06740212,  0.03248304,  0.0321031 ,
-#         0.00209229, -0.0077049 , -0.09759294,  0.15      ,  0.15      ,
-#         0.15      ,  0.04678499,  0.07895975,  0.04228295,  0.10795647,
-#         0.15      ]),
-# array([ 0.01093908,  0.13117938, -0.05896581,  0.06104696,  0.07156699,
-#         0.04150851,  0.0914763 ,  0.1113799 , -0.03040368, -0.03950175,
-#         0.10214957,  0.09246443, -0.06733553,  0.08199775,  0.15      ,
-#         0.13204972]),
-# array([ 0.09397575,  0.1499991 ,  0.10504868,  0.14506238,  0.1499991 ,
-#         0.05590429,  0.09567325,  0.11548044,  0.02710342,  0.14308801,
-#         0.10474537,  0.02042004, -0.05528315,  0.058258  , -0.01525904,
-#        -0.06350203]),
-# array([ 0.00772121,  0.07793073,  0.12780643, -0.04219347,  0.0981634 ,
-#        -0.04178417,  0.07813825,  0.06815578,  0.15      ,  0.13504975,
-#        -0.00587626,  0.07976501,  0.0242636 ,  0.07263196,  0.04418251,
-#        -0.0250944 ])]
-
-#weightsout
-#array([[-0.01385135, -0.15      ,  0.14976592,  0.14854409, -0.08937733,
-#         0.14776773, -0.02167841,  0.14915618,  0.14938388,  0.14908119],
-#       [ 0.14900845,  0.14706847, -0.14893192, -0.14904689,  0.14666269,
-#         0.05747557,  0.14706847,  0.14926712, -0.14904067,  0.1491592 ],
-#       [-0.14858378,  0.15      , -0.15      ,  0.15      ,  0.15      ,
-#         0.15      ,  0.15      , -0.14895323, -0.14688179, -0.14869455]])
-#    
-    
+  
     
     
     
