@@ -13,7 +13,13 @@ sens_tau_decay=1.5*ms ## maybe 1 for all or 2 ?
 filt_tau_decay=2*ms
 sum_tau_decay=2*ms
 
-
+weightzzz=[[0.1, 0.2, 0.1, 0.15],
+           [0.1, 0.1, 0.12, 0.1],
+           [0.1, 0.3, 0.1, 0.1],
+           [0.12, 0.1, 0.11, 0.1]]
+weights2= [[0.13, 0.1, 0.14, 0.2],
+           [0.1, 0.16, 0.1, 0.15],
+           [0.13, 0.1, 0.1, 0.09]]
 
 weight16  =  [[0.01,0.02,0.01,0.03, 0.02,0.06,0.01,0.08, 0.01,0.01,0.02,0.10, 0.01,0.02,0.12,0.1],
               [0.01,0.12,0.01,0.13, 0.02,0.06,0.01,0.18, 0.01,0.01,0.02,0.10, 0.01,0.12,0.12,0.2],
@@ -208,6 +214,24 @@ sumneur.v = c
 sumneur.u = c*b
 sumneur.tau_decay = sum_tau_decay
 
+othersum = NeuronGroup(8, sum_equ, clock=Clock(0.2*ms), method='euler',threshold = 'v >= 30', 
+            reset = '''v = c; u = u + d ''')
+othersum.v = c
+othersum.u = c*b
+othersum.tau_decay = sum_tau_decay
+
+
+midneur = NeuronGroup(4, sum_equ, clock=Clock(0.2*ms), method='euler',threshold = 'v >= 30', 
+            reset = '''v = c; u = u + d ''')
+midneur.v = c
+midneur.u = c*b
+midneur.tau_decay = sum_tau_decay
+
+whichshape = NeuronGroup(3, sum_equ, clock=Clock(0.2*ms), method='euler',threshold = 'v >= 30', 
+            reset = '''v = c; u = u + d ''')
+whichshape.v = c
+whichshape.u = c*b
+whichshape.tau_decay = sum_tau_decay
 
 
 midneur16 = NeuronGroup(8, sum_equ, clock=Clock(0.2*ms), method='euler',threshold = 'v >= 30', 
@@ -341,8 +365,68 @@ syn_sum4.g_synmax=sumg_synmaxval
 
 
 
+othersum1 = Synapses(filt1, othersum, clock=sensors.clock,model='''
+                g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+othersum1.connect(i=[0,1,2,3,4,5,6,7,8],j=[0])
+othersum1.g_synmax=sumotherg_synmaxval
+
+othersum2 = Synapses(filt2, othersum, clock=sensors.clock,model='''
+                g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+othersum2.connect(i=[0,1,2,3,4,5,6,7,8],j=[1])
+othersum2.g_synmax=sumotherg_synmaxval
+
+othersum3 = Synapses(filt3, othersum, clock=sensors.clock,model='''
+                g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+othersum3.connect(i=[0,1,2,3,4,5,6,7,8],j=[2])
+othersum3.g_synmax=sumotherg_synmaxval
+
+othersum4 = Synapses(filt4, othersum, clock=sensors.clock,model='''
+                g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+othersum4.connect(i=[0,1,2,3,4,5,6,7,8],j=[3])
+othersum4.g_synmax=sumotherg_synmaxval
+
+syn_sumz = Synapses(sumneur, othersum, clock=sensors.clock,model='''
+                g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+syn_sumz.connect(i=[0,1,2,3],j=[4])
+syn_sumz.connect(i=[4,5,6,7],j=[5])
+syn_sumz.connect(i=[8,9,10,11],j=[6])
+syn_sumz.connect(i=[12,13,14,15],j=[7])
+syn_sumz.g_synmax=myotherpeak
+
+
+
 
 ######################### the crazy synapses ###########################
+
+###only a few neurons 
+midneur1 = Synapses(othersum, midneur, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midneur1.connect(i=[4,5,6,7],j=[0])
+midneur1.g_synmax=weightzzz[0]
+
+midneur2 = Synapses(othersum, midneur, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midneur2.connect(i=[4,5,6,7],j=[1])
+midneur2.g_synmax=weightzzz[1]
+
+midneur3 = Synapses(othersum, midneur, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midneur3.connect(i=[4,5,6,7],j=[2])
+midneur3.g_synmax=weightzzz[2]
+
+midneur4 = Synapses(othersum, midneur, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midneur4.connect(i=[4,5,6,7],j=[3])
+midneur4.g_synmax=weightzzz[3]
+
+
+synshape1 = Synapses(midneur, whichshape, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+synshape1.connect(i=[0,1,2,3],j=[0])
+synshape1.g_synmax=weights2[0]
+
+synshape2 = Synapses(midneur, whichshape, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+synshape2.connect(i=[0,1,2,3],j=[1])
+synshape2.g_synmax=weights2[1]
+
+synshape3 = Synapses(midneur, whichshape, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+synshape3.connect(i=[0,1,2,3],j=[2])
+synshape3.g_synmax=weights2[2]
 
 
 
@@ -400,9 +484,9 @@ Mfilt2=StateMonitor(filt2, ('v'), record=True)
 Mfilt3=StateMonitor(filt3, ('v'), record=True)
 Mfilt4=StateMonitor(filt4, ('v'), record=True)
 Msum=StateMonitor(sumneur, ('v'), record=True)
-
-Mmid=StateMonitor(midneur16, ('v'), record=True)
-Mshape=StateMonitor(whichshape16, ('v'), record=True)
+Mothersum=StateMonitor(othersum, ('v'), record=True)
+Mmid=StateMonitor(midneur, ('v'), record=True)
+Mshape=StateMonitor(whichshape, ('v'), record=True)
 
 spike_sensors = SpikeMonitor(sensors)
 spike_filt1 = SpikeMonitor(filt1)
@@ -411,6 +495,9 @@ spike_filt3 = SpikeMonitor(filt3)
 spike_filt4 = SpikeMonitor(filt4)
 
 spike_sum = SpikeMonitor(sumneur)
+spike_othersum = SpikeMonitor(othersum)
+spike_mid = SpikeMonitor(midneur)
+spike_shape = SpikeMonitor(whichshape)
 
 spike_mid16 = SpikeMonitor(midneur16)
 spike_shape16 = SpikeMonitor(whichshape16)
@@ -437,11 +524,9 @@ print spike_filt2.count
 print spike_filt3.count
 print spike_filt4.count
 print spike_sum.count
-print spike_mid16.count
-print spike_shape16.count
-
-print " " 
-print " " 
+print spike_othersum.count
+print spike_mid.count
+print spike_shape.count
 
 print "figure 2 shows the sensor neurons firing"
 figure(2)
@@ -485,16 +570,22 @@ for x in range(0,16):
     plot(Msum.t/ms, Msum.v[x])
     axis([0,1000,-80,30])
 
-
+print "figure 8 shows the 8 sum neurons (row 1 = sums of 16 sum neurons)" 
+print "(row 2 = sums all filter neurons (row 2, column 1 = filter 1))" 
+figure(8)
+for x in range(0,8):
+    subplot(2,4,(x+1))
+    plot(Mothersum.t/ms, Mothersum.v[x])
+    axis([0,1000,-80,30])
 
 print "figure 9 shows the mid neurons (not ready yet)"
 figure(9)
-for x in range(0,8):
-    subplot(2,4,(x+1))
+for x in range(0,4):
+    subplot(2,2,(x+1))
     plot(Mmid.t/ms, Mmid.v[x])
     axis([0,1000,-80,30])
 
-print "figure 10 shows the final answer neurons (not ready yet)"
+print "figure 9 shows the final answer neurons (not ready yet)"
 figure(10)
 for x in range(0,3):
     subplot(1,3,(x+1))
@@ -507,7 +598,8 @@ for x in range(0,3):
 #    plot(Mfilt1.t/ms, Mfilt1.synI_exc[x])
 #    axis([0,1000,-1,10])
 
-
+print spike_mid16.count
+print spike_shape16.count
 
 
 show()
