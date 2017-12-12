@@ -83,9 +83,9 @@ d = 2
 sens_tau_decay=1.5*ms ## maybe 1 for all or 2 ?
 filt_tau_decay=2*ms
 sum_tau_decay=2*ms
-taupre=20*ms 
+taupre=5*ms 
 taupost=20*ms
-Apre = 0.01
+Apre = 0.001
 Apost = -Apre*1.05
 
 sensormag=2.2 ## the very minimum is 1.3 for it to fire with 3 inputs to make sensor neuron fire
@@ -463,10 +463,11 @@ shapesyn3.w=weightsout[2]
 
     
 mycount=1
-@network_operation(dt=200*ms)
-def printWeights():
-    print shapesyn1.w
-
+# @network_operation(dt=1005*ms)
+# def printWeights():
+#     print shapesyn1.w
+#     print mypixel
+#     print idealans
 
 @network_operation(dt=1000*ms)
 def update_stuff():
@@ -475,11 +476,11 @@ def update_stuff():
     global idealans
     mypixel=shapedatamatrix[mycount] ### update the shape 
     idealans=idealansmatrix[mycount] ### update the ideal output 
-    whichshape16.clampedcurrent[0]=idealans[0]*20
-    whichshape16.clampedcurrent[1]=idealans[1]
-    whichshape16.clampedcurrent[2]=idealans[2]
+    whichshape16.clampedcurrent[0]=idealans[0]*8
+    whichshape16.clampedcurrent[1]=idealans[1]*8
+    whichshape16.clampedcurrent[2]=idealans[2]*8
     mycount=mycount+1
-    if mycount == 90:
+    if mycount == 54:
         mycount = 0
     for x in range (0,6):
         for y in range (0,6):
@@ -494,7 +495,6 @@ def update_stuff():
             sensors.x7[curr]=mypixel[(y*3)+2][(x*3)+1]
             sensors.x8[curr]=mypixel[(y*3)+2][(x*3)+2]
             
-    
     sensors.v = c
     sensors.u = c*b
     sensors.g_exc = 0
@@ -527,15 +527,30 @@ def update_stuff():
     whichshape16.u = c*b
     whichshape16.g_exc = 0
     whichshape16.z_exc = 0
+    #print mypixel
+    #print idealans
+    print shapesyn1.w
+    print shapesyn2.w
+    print shapesyn3.w
+    print mycount
     return
 
+run(5400*second) ## run for a really long time 
 
-print shapesyn1.w
-run(50*second) ## run for a really long time 
+print numpy.array(shapesyn1.w)
+print numpy.array(shapesyn2.w)
+print numpy.array(shapesyn3.w)
 
-print shapesyn1.w
-
-
+print numpy.array(midsyn1.w)
+print numpy.array(midsyn2.w)
+print numpy.array(midsyn3.w)
+print numpy.array(midsyn4.w)
+print numpy.array(midsyn5.w)
+print numpy.array(midsyn6.w)
+print numpy.array(midsyn7.w)
+print numpy.array(midsyn8.w)
+print numpy.array(midsyn9.w)
+print numpy.array(midsyn10.w)
 
 show()
 
