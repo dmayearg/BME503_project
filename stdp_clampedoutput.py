@@ -1,8 +1,9 @@
+from brian2.core.operations import network_operation
 
 #from brian2 import *
 #import matplotlib.pyplot as plt
 
-execfile("stdphapedata.py")
+execfile("stdpshapedata.py")
 
 shapedatamatrix=[triround_1[0],triround_1[4],triround_1[5],
                  squround_1[0],squround_1[1],squround_1[23],
@@ -65,6 +66,14 @@ idealansmatrix=[[1,0,0],[1,0,0],[1,0,0],
                 [1,0,0],[1,0,0],[1,0,0],
                 [0,1,0],[0,1,0],[0,1,0],
                 [0,0,1],[0,0,1],[0,0,1]]
+
+
+## INITIALIZE
+mypixel = []
+idealans = []
+mypixel=shapedatamatrix[0] ### update the shape 
+idealans=idealansmatrix[0] ### update the ideal output 
+
 ## fast spiking izhikevich model 
 a = 0.1
 b = 0.2
@@ -313,75 +322,165 @@ syn_sum4.g_synmax=sumg_synmaxval
 
 
 ######################### the crazy synapses ###########################
-
+syn_eqns = '''
+g_synmax: 1
+w:1
+dapre/dt=-apre/taupre : 1
+dapost/dt=-apost/taupost : 1
+'''
 ######################### ADD THE ON_PRE  AND ON_POST TRACES 
 midsyn1 = Synapses(sumneur, midneur16, clock=sensors.clock,
-                   model='''g_synmax: 1; w:1; dapre/dt=-apre/taupre ; dapost/dt=-apost/taupost''', 
-                   on_pre=''' z_exc+= w; apre += Apre; w = clip(w+apost, -0.2, 0.2)''',
-                   on_post='''apost += Apost; w = clip(w+apre, -0.2, 0.2)'''')
+                   model= syn_eqns, 
+                   on_pre=''' z_exc+= w 
+                              apre += Apre
+                              w = clip(w+apost, -0.2, 0.2)''',
+                   on_post='''apost += Apost
+                              w = clip(w+apre, -0.2, 0.2)''')
 midsyn1.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[0])
 midsyn1.w=weight16[0]
 
-midsyn2 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midsyn2 = Synapses(sumneur, midneur16, clock=sensors.clock,
+                   model= syn_eqns, 
+                   on_pre=''' z_exc+= w 
+                              apre += Apre
+                              w = clip(w+apost, -0.2, 0.2)''',
+                   on_post='''apost += Apost
+                              w = clip(w+apre, -0.2, 0.2)''')
 midsyn2.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[1])
 midsyn2.w=weight16[1]
 
-midsyn3 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midsyn3 = Synapses(sumneur, midneur16, clock=sensors.clock,
+                   model= syn_eqns, 
+                   on_pre=''' z_exc+= w 
+                              apre += Apre
+                              w = clip(w+apost, -0.2, 0.2)''',
+                   on_post='''apost += Apost
+                              w = clip(w+apre, -0.2, 0.2)''')
 midsyn3.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[2])
 midsyn3.w=weight16[2]
 
-midsyn4 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midsyn4 = Synapses(sumneur, midneur16, clock=sensors.clock,
+                   model= syn_eqns, 
+                   on_pre=''' z_exc+= w 
+                              apre += Apre
+                              w = clip(w+apost, -0.2, 0.2)''',
+                   on_post='''apost += Apost
+                              w = clip(w+apre, -0.2, 0.2)''')
 midsyn4.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[3])
 midsyn4.w=weight16[3]
 
-midsyn5 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midsyn5 = Synapses(sumneur, midneur16, clock=sensors.clock,
+                   model= syn_eqns, 
+                   on_pre=''' z_exc+= w 
+                              apre += Apre
+                              w = clip(w+apost, -0.2, 0.2)''',
+                   on_post='''apost += Apost
+                              w = clip(w+apre, -0.2, 0.2)''')
 midsyn5.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[4])
 midsyn5.w=weight16[4]
 
-midsyn6 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midsyn6 = Synapses(sumneur, midneur16, clock=sensors.clock,
+                   model= syn_eqns, 
+                   on_pre=''' z_exc+= w 
+                              apre += Apre
+                              w = clip(w+apost, -0.2, 0.2)''',
+                   on_post='''apost += Apost
+                              w = clip(w+apre, -0.2, 0.2)''')
 midsyn6.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[5])
 midsyn6.w=weight16[5]
 
-midsyn7 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midsyn7 = Synapses(sumneur, midneur16, clock=sensors.clock,
+                   model= syn_eqns, 
+                   on_pre=''' z_exc+= w 
+                              apre += Apre
+                              w = clip(w+apost, -0.2, 0.2)''',
+                   on_post='''apost += Apost
+                              w = clip(w+apre, -0.2, 0.2)''')
 midsyn7.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[6])
 midsyn7.w=weight16[6]
 
-midsyn8 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midsyn8 = Synapses(sumneur, midneur16, clock=sensors.clock,
+                   model= syn_eqns, 
+                   on_pre=''' z_exc+= w 
+                              apre += Apre
+                              w = clip(w+apost, -0.2, 0.2)''',
+                   on_post='''apost += Apost
+                              w = clip(w+apre, -0.2, 0.2)''')
 midsyn8.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[7])
 midsyn8.w=weight16[7]
 
-midsyn9 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midsyn9 = Synapses(sumneur, midneur16, clock=sensors.clock,
+                   model= syn_eqns, 
+                   on_pre=''' z_exc+= w 
+                              apre += Apre
+                              w = clip(w+apost, -0.2, 0.2)''',
+                   on_post='''apost += Apost
+                              w = clip(w+apre, -0.2, 0.2)''')
 midsyn9.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[8])
 midsyn9.w=weight16[8]
 
-midsyn10 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+midsyn10 = Synapses(sumneur, midneur16, clock=sensors.clock,
+                   model= syn_eqns, 
+                   on_pre=''' z_exc+= w 
+                              apre += Apre
+                              w = clip(w+apost, -0.2, 0.2)''',
+                   on_post='''apost += Apost
+                              w = clip(w+apre, -0.2, 0.2)''')
 midsyn10.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[9])
 midsyn10.w=weight16[9]
 
-shapesyn1 = Synapses(midneur16, whichshape16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+shapesyn1 = Synapses(sumneur, midneur16, clock=sensors.clock,
+                   model= syn_eqns, 
+                   on_pre=''' z_exc+= w 
+                              apre += Apre
+                              w = clip(w+apost, -0.2, 0.2)''',
+                   on_post='''apost += Apost
+                              w = clip(w+apre, -0.2, 0.2)''')
 shapesyn1.connect(i=[0,1,2,3,4,5,6,7,8,9],j=[0])
 shapesyn1.w=weightsout[0]
 
-shapesyn2 = Synapses(midneur16, whichshape16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+shapesyn2 = Synapses(sumneur, midneur16, clock=sensors.clock,
+                   model= syn_eqns, 
+                   on_pre=''' z_exc+= w 
+                              apre += Apre
+                              w = clip(w+apost, -0.2, 0.2)''',
+                   on_post='''apost += Apost
+                              w = clip(w+apre, -0.2, 0.2)''')
 shapesyn2.connect(i=[0,1,2,3,4,5,6,7,8,9],j=[1])
 shapesyn2.w=weightsout[1]
 
-shapesyn3 = Synapses(midneur16, whichshape16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+shapesyn3 = Synapses(sumneur, midneur16, clock=sensors.clock,
+                   model= syn_eqns, 
+                   on_pre=''' z_exc+= w 
+                              apre += Apre
+                              w = clip(w+apost, -0.2, 0.2)''',
+                   on_post='''apost += Apost
+                              w = clip(w+apre, -0.2, 0.2)''')
 shapesyn3.connect(i=[0,1,2,3,4,5,6,7,8,9],j=[2])
 shapesyn3.w=weightsout[2]
 
 
 
-mycount=0
+    
+mycount=1
+@network_operation(dt=200*ms)
+def printWeights():
+    print shapesyn1.w
+
+
 @network_operation(dt=1000*ms)
 def update_stuff():
     global mycount
+    global mypixel
+    global idealans
     mypixel=shapedatamatrix[mycount] ### update the shape 
     idealans=idealansmatrix[mycount] ### update the ideal output 
     whichshape16.clampedcurrent[0]=idealans[0]*20
     whichshape16.clampedcurrent[1]=idealans[1]
     whichshape16.clampedcurrent[2]=idealans[2]
     mycount=mycount+1
+    if mycount == 90:
+        mycount = 0
     for x in range (0,6):
         for y in range (0,6):
             curr=(y*6)+x
@@ -430,9 +529,11 @@ def update_stuff():
     whichshape16.z_exc = 0
     return
 
-run(50*seconds) ## run for a really long time 
 
+print shapesyn1.w
+run(50*second) ## run for a really long time 
 
+print shapesyn1.w
 
 
 
