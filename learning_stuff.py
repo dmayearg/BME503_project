@@ -17,37 +17,30 @@ sensors.v = c
 sensors.u = c*b
 sensors.g_exc = 0
 sensors.z_exc = 0
-
 filt1.v = c
 filt1.u = c*b
 filt1.g_exc = 0
 filt1.z_exc = 0
-
 filt2.v = c
 filt2.u = c*b
 filt2.g_exc = 0
 filt2.z_exc = 0
-
 filt3.v = c
 filt3.u = c*b
 filt3.g_exc = 0
 filt3.z_exc = 0
-
 filt4.v = c
 filt4.u = c*b
 filt4.g_exc = 0
 filt4.z_exc = 0
-
 sumneur.v = c
 sumneur.u = c*b
 sumneur.g_exc = 0
 sumneur.z_exc = 0
-
 midneur16.v = c
 midneur16.u = c*b
 midneur16.g_exc = 0
 midneur16.z_exc = 0
-
 whichshape16.v = c
 whichshape16.u = c*b
 whichshape16.g_exc = 0
@@ -85,16 +78,8 @@ spike_shape16 = SpikeMonitor(whichshape16)
 
 run(duration)
 
-
-##### yall dont need this part 
-#mysumpercent=(1/(1+exp(-(((numpy.array(spike_sum.count).astype(float)/5)-7)))))
-#mymidpercent=(1/(1+exp(-(((numpy.array(spike_mid16.count).astype(float)/5)-7)))))
-
 mysumpercent=(1/(1+exp(-(log(numpy.array(spike_sum.count)+1)*2-7))))
 mymidpercent=(1/(1+exp(-(log(numpy.array(spike_mid16.count)+1)*2-7))))
-
-#mysumpercent=(numpy.array(spike_sum.count).astype(float).tolist()/sum(spike_sum.count))
-#mymidpercent=(numpy.array(spike_mid16.count).astype(float).tolist()/sum(spike_mid16.count))
 
 myshapepercent=(numpy.array(spike_shape16.count).astype(float).tolist()/(sum(spike_shape16.count)+1))
 myerror=((myshapepercent[0]-idealans[0])**2+(myshapepercent[1]-idealans[1])**2+(myshapepercent[2]-idealans[2])**2) ## for triangle

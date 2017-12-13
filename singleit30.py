@@ -181,21 +181,87 @@ execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 
 
+
+
+
+
+
+
 idealans=[1,0,0]
-mypixel = triround_1[16]
+mypixel = triround_1[9]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
-mypixel = triround_1[17]
+mypixel = triround_1[14]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
-mypixel = triround_1[18]
+mypixel = triround_1[30]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 idealans=[0,1,0]
+mypixel = squround_1[3]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
 mypixel = squround_1[4]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
+mypixel = squround_1[5]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+idealans=[0,0,1]
+mypixel = shapes_normal[2]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+
+
+idealans=[1,0,0]
+mypixel = triround_1[31]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+mypixel = triround_2[0]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+mypixel = triround_2[1]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+idealans=[0,1,0]
+mypixel = squround_1[8]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+mypixel = squround_1[9]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
 mypixel = squround_1[14]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+idealans=[0,0,1]
+mypixel = shapes_normal[2]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+
+
+idealans=[1,0,0]
+mypixel = triround_2[7]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+mypixel = triround_2[10]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+mypixel = triround_2[11]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+idealans=[0,1,0]
+mypixel = squround_1[35]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+mypixel = squround_1[40]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 mypixel = squround_1[43]
@@ -212,23 +278,23 @@ thisroundoferror.append(int(100*myerror))
 
 
 idealans=[1,0,0]
-mypixel = triround_1[19]
+mypixel = triround_2[12]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
-mypixel = triround_1[42]
+mypixel = triround_2[16]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
-mypixel = triround_1[43]
+mypixel = triround_2[17]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 idealans=[0,1,0]
-mypixel = squround_1[44]
+mypixel = squround_2[10]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
-mypixel = squround_1[45]
+mypixel = squround_2[12]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
-mypixel = squround_1[46]
+mypixel = squround_2[15]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 idealans=[0,0,1]
@@ -240,65 +306,7 @@ thisroundoferror.append(int(100*myerror))
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 
-
-idealans=[1,0,0]
-mypixel = triround_2[0]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-mypixel = triround_2[1]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-mypixel = triround_2[2]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-idealans=[0,1,0]
-mypixel = squround_2[21]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-mypixel = squround_2[22]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-mypixel = squround_2[23]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-idealans=[0,0,1]
-mypixel = shapes_normal[2]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-
-
-idealans=[1,0,0]
-mypixel = triround_2[3]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-mypixel = triround_2[4]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-mypixel = triround_2[5]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-idealans=[0,1,0]
-mypixel = squround_2[24]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-mypixel = squround_2[25]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-mypixel = squround_2[26]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-idealans=[0,0,1]
-mypixel = shapes_normal[2]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
+###THINGS ABOVE 32 OR BELOW 21
 
 
 print thisroundoferror

@@ -1,6 +1,13 @@
 #### declare the shapes 
-basevalue= 60
 
+### declare myweights16
+### declare myweightsout
+
+
+
+idealans=[1,0,0]
+mypixel=triround_1[0]
+execfile("guesstheshape.py")
 checking_tri1=[]
 checking_tri2=[]
 checking_tri3=[]
@@ -20,21 +27,21 @@ print "triangles round 1"
 for thisx in range (0,len(triround_1)):
     mypixel = triround_1[thisx]
     print thisx
-    execfile("guesstheshape.py")
+    execfile("guessshape2.py")
     checking_tri1.append(numpy.array(spike_shape16.count).tolist())
     checking_tri1p.append(int(100*myerror))
 print "triangles round 2" 
 for thisx in range (0,len(triround_2)):
     mypixel = triround_2[thisx]
     print thisx
-    execfile("guesstheshape.py")
+    execfile("guessshape2.py")
     checking_tri2.append(numpy.array(spike_shape16.count).tolist())
     checking_tri2p.append(int(100*myerror))
 print "triangles round 3" 
 for thisx in range (0,len(triround_3)):
     mypixel = triround_3[thisx]
     print thisx
-    execfile("guesstheshape.py")
+    execfile("guessshape2.py")
     checking_tri3.append(numpy.array(spike_shape16.count).tolist())
     checking_tri3p.append(int(100*myerror))
     
@@ -43,25 +50,32 @@ print "squares round 1"
 for thisx in range (0,len(squround_1)):
     mypixel = squround_1[thisx]
     print thisx
-    execfile("guesstheshape.py")
+    execfile("guessshape2.py")
     checking_squ1.append(numpy.array(spike_shape16.count).tolist())
     checking_squ1p.append(int(100*myerror))
 print "squares round 2" 
 for thisx in range (0,len(squround_2)):
     mypixel = squround_2[thisx]
     print thisx
-    execfile("guesstheshape.py")
+    execfile("guessshape2.py")
     checking_squ2.append(numpy.array(spike_shape16.count).tolist())
     checking_squ2p.append(int(100*myerror))
 print "squares round 3" 
 for thisx in range (0,len(squround_3)):
     mypixel = squround_3[thisx]
     print thisx
-    execfile("guesstheshape.py")
+    execfile("guessshape2.py")
     checking_squ3.append(numpy.array(spike_shape16.count).tolist())
     checking_squ3p.append(int(100*myerror))
 
 
+
+
+
+
+
+
+basevalue= 38
 print "checking percent error against base value of", basevalue 
 print "triangle round 1" 
 for thisx in range (0,len(triround_1)):
@@ -76,6 +90,8 @@ for thisx in range (0,len(triround_3)):
     if(checking_tri3p[thisx]>=basevalue):
         print thisx, "is above basevalue" 
 
+basevalue=38
+print "checking percent error against base value of", basevalue 
 print "square round 1" 
 for thisx in range (0,len(squround_1)):
     if(checking_squ1p[thisx]>=basevalue):
@@ -88,3 +104,38 @@ print "square round 3"
 for thisx in range (0,len(squround_3)):
     if(checking_squ3p[thisx]>=basevalue):
         print thisx, "is above basevalue" 
+        
+        
+
+        
+basevalue= 0.50
+print "checking percent error against base value of", basevalue 
+print "triangle round 1" 
+for thisx in range (0,len(triround_1)):
+    if((float(checking_tri1[thisx][0])/sum(checking_tri1[thisx]))<=basevalue):
+        print thisx, "is above basevalue" 
+print "triangle round 2" 
+for thisx in range (0,len(triround_2)):
+    if((float(checking_tri2[thisx][0])/sum(checking_tri2[thisx]))<=basevalue):
+        print thisx, "is above basevalue" 
+print "triangle round 3" 
+for thisx in range (0,len(triround_3)):
+    if((float(checking_tri3[thisx][0])/sum(checking_tri3[thisx]))<=basevalue):
+        print thisx, "is above basevalue"
+        
+basevalue= 0.5
+print "checking percent error against base value of", basevalue 
+print "square round 1" 
+for thisx in range (0,len(squround_1)):
+    if((float(checking_squ1[thisx][1])/sum(checking_squ1[thisx]))<=basevalue):
+        print thisx, "is above basevalue" 
+print "square round 2" 
+for thisx in range (0,len(squround_2)):
+    if((float(checking_squ2[thisx][1])/sum(checking_squ2[thisx]))<=basevalue):
+        print thisx, "is above basevalue" 
+print "square round 3" 
+for thisx in range (0,len(squround_3)):
+    if((float(checking_squ3[thisx][1])/sum(checking_squ3[thisx]))<=basevalue):
+        print thisx, "is above basevalue"
+
+

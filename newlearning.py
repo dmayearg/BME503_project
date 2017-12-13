@@ -131,12 +131,6 @@ squround_3=[26,27,28,29,30,31,32,33,34,35,36,37,38,
             133,134,135,136,
             141,142,143,144]
 
-triangle_data_sens = [triround_1,triround_2,triround_3]
-square_data_sens = [squround_1,squround_2,squround_3]
-
-triangle_data_sum  = triangle_data_sens
-square_data_sum  = square_data_sens
-
 for thisx in range(1,len(triround_1)):
     currentmatrix=weird_triangles1[triround_1[thisx]]
     triround_1[thisx]=currentmatrix
@@ -226,7 +220,7 @@ execfile("sense_filter_sum_learn.py")
 print " "
 
 
-for myrunningcount in range(0,5):
+for myrunningcount in range(0,10):
     print " " 
     print myrunningcount
     print weight16
@@ -291,7 +285,7 @@ for myrunningcount in range(0,10):
     idealans=[0,0,1]
     execfile("sense_filter_sum_learn.py")
     for othercoutzzz in range(0,10):
-        execfile("singleit18.py")
+        execfile("singleit30.py")
     for somenum in range(0,10):
         myerror_tri[(somenum*3)].append(thisroundoferror[(somenum*9)])
         myerror_tri[(somenum*3)+1].append(thisroundoferror[(somenum*9)+1])
@@ -303,47 +297,9 @@ for myrunningcount in range(0,10):
         myerror_cir[(somenum*3)+1].append(thisroundoferror[(somenum*9)+7])
         myerror_cir[(somenum*3)+2].append(thisroundoferror[(somenum*9)+8])
 
-#for myrunningcount in range(0,6):
-#    print " " 
-#    print myrunningcount
-#    print weight16
-#    print weightsout
-#    mynew_weightout_neverused.append(weightsout.tolist())
-#    mynew_weight16_neverused.append([weight16[0].tolist(),
-#                                     weight16[1].tolist(),
-#                                     weight16[2].tolist(),
-#                                     weight16[3].tolist(),
-#                                     weight16[4].tolist(),
-#                                     weight16[5].tolist(),
-#                                     weight16[6].tolist(),
-#                                     weight16[7].tolist(),
-#                                     weight16[8].tolist(),
-#                                     weight16[9].tolist()])
-#    mypixel = shapes_normal[0]
-#    idealans=[1,0,0]
-#    execfile("sense_filter_sum_learn.py")
-#    mypixel = shapes_normal[1]
-#    idealans=[0,1,0]
-#    execfile("sense_filter_sum_learn.py")
-#    mypixel = shapes_normal[2]
-#    idealans=[0,0,1]
-#    execfile("sense_filter_sum_learn.py")
-#    for othercoutzzz in range(0,8):
-#        execfile("singleiteration.py")
-#    for somenum in range(0,36):
-#        myerror_tri[(somenum*3)].append(thisroundoferror[(somenum*9)])
-#        myerror_tri[(somenum*3)+1].append(thisroundoferror[(somenum*9)+1])
-#        myerror_tri[(somenum*3)+2].append(thisroundoferror[(somenum*9)+2])
-#        myerror_squ[(somenum*3)].append(thisroundoferror[(somenum*9)+3])
-#        myerror_squ[(somenum*3)+1].append(thisroundoferror[(somenum*9)+4])
-#        myerror_squ[(somenum*3)+2].append(thisroundoferror[(somenum*9)+5])
-#        myerror_cir[(somenum*3)].append(thisroundoferror[(somenum*9)+6])
-#        myerror_cir[(somenum*3)+1].append(thisroundoferror[(somenum*9)+7])
-#        myerror_cir[(somenum*3)+2].append(thisroundoferror[(somenum*9)+8])
-#        
-#        
-#        
-#for myrunningcount in range(0,5):
+#mynew_weightout_neverused=[]
+#mynew_weight16_neverused=[]
+#for myrunningcount in range(0,10):
 #    print " " 
 #    print myrunningcount
 #    print weight16
@@ -369,8 +325,8 @@ for myrunningcount in range(0,10):
 #    idealans=[0,0,1]
 #    execfile("sense_filter_sum_learn.py")
 #    for othercoutzzz in range(0,10):
-#        execfile("singleiteration.py")
-#    for somenum in range(0,36):
+#        execfile("singleit60.py")
+#    for somenum in range(0,22):
 #        myerror_tri[(somenum*3)].append(thisroundoferror[(somenum*9)])
 #        myerror_tri[(somenum*3)+1].append(thisroundoferror[(somenum*9)+1])
 #        myerror_tri[(somenum*3)+2].append(thisroundoferror[(somenum*9)+2])
@@ -380,6 +336,156 @@ for myrunningcount in range(0,10):
 #        myerror_cir[(somenum*3)].append(thisroundoferror[(somenum*9)+6])
 #        myerror_cir[(somenum*3)+1].append(thisroundoferror[(somenum*9)+7])
 #        myerror_cir[(somenum*3)+2].append(thisroundoferror[(somenum*9)+8])
+
+#execfile("shapedata.py")
+#mynew_weightout_neverused=[]
+#mynew_weight16_neverused=[]
+#myerror_tri=[[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[]]
+#myerror_squ=[[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[]]
+#myerror_cir=[[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], 
+#             [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[]]
+#
+#
+#triround_1=[mytri,0,1,2,3,4,5,6,7,8,9,
+#            10,19,
+#            20,21,22,23,24,25,26,
+#            35,36,37,38,39,
+#            40,41,42,43,44,45,46,47,48,49,
+#            50,51,52,53,54,55,56,57,58,59,
+#            60,61,62,
+#            71,72,73,74,75,76,77,78,
+#            103,104,106,107,108]
+#
+#triround_2=[11,12,13,14,
+#            27,28,29,
+#            30,31,32,33,34,
+#            63,64,65,66,67,68,69,
+#            70,79,
+#            80,81,82,83,84,85,86,87,88,89,
+#            90,91,92,93,94,95,96,99,
+#            100,105,109,110]
+#
+#triround_3=[15,16,17,18,
+#            97,98,
+#            101,102]
+#
+#squround_1=[mysqu,0,1,2,3,4,5,6,7,8,9,10,11,12,13,
+#            48,49,50,51,
+#            65,66,67,68,
+#            73,74,75,76,
+#            81,82,83,84,
+#            89,90,91,92,
+#            97,98,99,100,
+#            105,106,107,108,
+#            113,114,115,116]
+#
+#squround_2=[14,15,16,17,18,19,20,21,22,23,24,25,
+#            39,40,41,42,43,44,45,46,47,
+#            69,70,71,72,
+#            77,78,79,80,
+#            85,86,87,88,
+#            121,122,123,124,
+#            129,130,131,132,
+#            137,138,139,140]
+#
+#squround_3=[26,27,28,29,30,31,32,33,34,35,36,37,38,
+#            52,53,54,55,56,57,58,59,60,61,62,63,64,
+#            93,94,95,96,
+#            101,102,103,104,
+#            109,110,111,112,
+#            117,118,119,120,
+#            125,126,127,128,
+#            133,134,135,136,
+#            141,142,143,144]
+#
+#for thisx in range(1,len(triround_1)):
+#    currentmatrix=weird_triangles1[triround_1[thisx]]
+#    triround_1[thisx]=currentmatrix
+#
+#for thisx in range(0,len(triround_2)):
+#    currentmatrix=weird_triangles1[triround_2[thisx]]
+#    triround_2[thisx]=currentmatrix
+#
+#for thisx in range(0,len(triround_3)):
+#    currentmatrix=weird_triangles1[triround_3[thisx]]
+#    triround_3[thisx]=currentmatrix
+#
+#for thisx in range(1,len(squround_1)):
+#    currentmatrix=weird_squares1[squround_1[thisx]]
+#    squround_1[thisx]=currentmatrix
+#
+#for thisx in range(0,len(squround_2)):
+#    currentmatrix=weird_squares1[squround_2[thisx]]
+#    squround_2[thisx]=currentmatrix
+#
+#for thisx in range(0,len(squround_3)):
+#    currentmatrix=weird_squares1[squround_3[thisx]]
+#    squround_3[thisx]=currentmatrix
+#
+#weightsout=array([[ 0.02561638, -0.2       ,  0.19488957,  0.19485612, -0.2       ,
+#         0.198168  ,  0.19495742,  0.19815986,  0.19806406,  0.19492963],
+#       [-0.17376065,  0.19794993,  0.19994949,  0.19998131,  0.19794993,
+#        -0.19766331,  0.19994949, -0.19765885, -0.19731249,  0.19996509],
+#       [ 0.2       ,  0.2       , -0.19994191, -0.19997797,  0.2       ,
+#        -0.19999763, -0.19994191, -0.19999763, -0.19999763, -0.19995964]])
+#    
+#weight16=[array([ 0.06755134, -0.11043133,  0.01749912, -0.09164706,  0.11709223,
+#         0.09794092, -0.05326828, -0.07290525,  0.0946188 ,  0.2       ,
+#         0.2       , -0.08761777,  0.2       ,  0.12474565,  0.1228786 ,
+#         0.19998516]),
+# array([-0.19939917, -0.19886767, -0.19954023, -0.19887607, -0.19944861,
+#        -0.19876778, -0.19946335, -0.19899718, -0.12371693,  0.2       ,
+#         0.13386141,  0.10549694,  0.2       ,  0.06837284,  0.10514643,
+#         0.18688153]),
+# array([ 0.1999999 ,  0.1999999 ,  0.06508345,  0.09878309,  0.05861195,
+#         0.05355063,  0.14747677,  0.07259023,  0.1999999 , -0.00456878,
+#         0.10694092,  0.1999999 , -0.00817981,  0.1999999 ,  0.1999999 ,
+#         0.02803065]),
+# array([ 0.15359704,  0.19999996,  0.00522791,  0.08060883,  0.19453883,
+#         0.06073818,  0.18572223,  0.12174164,  0.14209328,  0.12204056,
+#        -0.03290299,  0.19999996,  0.05905072,  0.19999996,  0.19999996,
+#        -0.02601177]),
+# array([-0.19566625, -0.04049908, -0.04976931, -0.17397117, -0.19938538,
+#        -0.19871765, -0.14448133, -0.15009621, -0.18459955,  0.2       ,
+#         0.17231703,  0.06070567,  0.2       , -0.04925757, -0.12746043,
+#         0.2       ]),
+# array([ 0.19938232,  0.09752479,  0.19949814,  0.19033403,  0.19967911,
+#         0.11476217,  0.19957049,  0.19907981, -0.03480044, -0.16129518,
+#        -0.17742197, -0.00204053, -0.11535941, -0.07743892, -0.05033261,
+#        -0.13603646]),
+# array([ 0.05613822,  0.00970482,  0.04717951,  0.10948687,  0.1999999 ,
+#         0.04040617,  0.04691142,  0.18808287,  0.1999999 , -0.00888058,
+#        -0.03161787,  0.1999999 ,  0.12924366,  0.1999999 ,  0.1999999 ,
+#         0.03349754]),
+# array([ 0.19926615,  0.14415792,  0.19942452,  0.11612249,  0.1995553 ,
+#         0.16195791,  0.19948759,  0.19299087,  0.0842196 , -0.2       ,
+#        -0.14290919,  0.01594647, -0.14180412, -0.12795375, -0.02370654,
+#        -0.2       ]),
+# array([ 0.19953376,  0.13253752,  0.19939742, -0.01064908,  0.19979027,
+#         0.17266116,  0.19945488,  0.15399763,  0.09700821, -0.07737325,
+#        -0.07647859, -0.08583944, -0.06693041,  0.02567697, -0.05353119,
+#        -0.2       ]),
+# array([ 0.0905912 ,  0.00272427,  0.15581791, -0.02124679,  0.08056646,
+#         0.04411016,  0.19999993,  0.19809504,  0.19999993,  0.10984801,
+#         0.02893735,  0.19999993,  0.0211796 ,  0.19999993,  0.19999993,
+#        -0.03775848])]
     
 #[34, 34, 34, 34, 34, 34, 32, 32, 0, 34, 34, 20, 34, 0, 20, 34]  #triangle
 #[0, 0, 0, 0, 0, 0, 0, 0, 20, 34, 34, 20, 34, 20, 20, 34]        #square
@@ -457,22 +563,25 @@ for myrunningcount in range(0,10):
 #    summmmofcount.append(count_error_thisthing/108)
 #print summmmofcount
 #
-#for otherxthing in range(0,len(mynew_weightout_neverused)):
-#    print (numpy.array(mynew_weightout_neverused[otherxthing][0])*100).astype(int)
-#    print (numpy.array(mynew_weightout_neverused[otherxthing][1])*100).astype(int)
-#    print (numpy.array(mynew_weightout_neverused[otherxthing][2])*100).astype(int)
-#    print " " 
-#for otherxthing in range(0,len(mynew_weight16_neverused)):
-#    print (numpy.array(mynew_weight16_neverused[otherxthing][0])*100).astype(int)
-#    print (numpy.array(mynew_weight16_neverused[otherxthing][1])*100).astype(int)
-#    print (numpy.array(mynew_weight16_neverused[otherxthing][2])*100).astype(int)
-#    print (numpy.array(mynew_weight16_neverused[otherxthing][3])*100).astype(int)
-#    print (numpy.array(mynew_weight16_neverused[otherxthing][4])*100).astype(int)
-#    print (numpy.array(mynew_weight16_neverused[otherxthing][5])*100).astype(int)
-#    print (numpy.array(mynew_weight16_neverused[otherxthing][6])*100).astype(int)
-#    print (numpy.array(mynew_weight16_neverused[otherxthing][7])*100).astype(int)
-#    print " "
-#    
+for otherxthing in range(0,len(mynew_weightout_neverused)):
+    print (numpy.array(mynew_weightout_neverused[otherxthing][0])*100).astype(int)
+    print (numpy.array(mynew_weightout_neverused[otherxthing][1])*100).astype(int)
+    print (numpy.array(mynew_weightout_neverused[otherxthing][2])*100).astype(int)
+    print " " 
+for otherxthing in range(0,len(mynew_weight16_neverused)):
+    print (numpy.array(mynew_weight16_neverused[otherxthing][0])*100).astype(int)
+    print (numpy.array(mynew_weight16_neverused[otherxthing][1])*100).astype(int)
+    print (numpy.array(mynew_weight16_neverused[otherxthing][2])*100).astype(int)
+    print (numpy.array(mynew_weight16_neverused[otherxthing][3])*100).astype(int)
+    print (numpy.array(mynew_weight16_neverused[otherxthing][4])*100).astype(int)
+    print (numpy.array(mynew_weight16_neverused[otherxthing][5])*100).astype(int)
+    print (numpy.array(mynew_weight16_neverused[otherxthing][6])*100).astype(int)
+    print (numpy.array(mynew_weight16_neverused[otherxthing][7])*100).astype(int)
+    print (numpy.array(mynew_weight16_neverused[otherxthing][8])*100).astype(int)
+    print (numpy.array(mynew_weight16_neverused[otherxthing][9])*100).astype(int)
+    
+    print " "
+    
     
     
 
