@@ -211,168 +211,68 @@ syn_sum4.g_synmax=sumg_synmaxval
 
 ######################### the crazy synapses ###########################
 
-midsyn1 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-midsyn1.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[0])
-midsyn1.g_synmax=myweights16[0]
-
-midsyn2 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-midsyn2.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[1])
-midsyn2.g_synmax=myweights16[1]
-
-midsyn3 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-midsyn3.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[2])
-midsyn3.g_synmax=myweights16[2]
-
-midsyn4 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-midsyn4.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[3])
-midsyn4.g_synmax=myweights16[3]
-
-midsyn5 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-midsyn5.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[4])
-midsyn5.g_synmax=myweights16[4]
-
-midsyn6 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-midsyn6.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[5])
-midsyn6.g_synmax=myweights16[5]
-
-midsyn7 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-midsyn7.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[6])
-midsyn7.g_synmax=myweights16[6]
-
-midsyn8 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-midsyn8.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[7])
-midsyn8.g_synmax=myweights16[7]
-
-midsyn9 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-midsyn9.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[8])
-midsyn9.g_synmax=myweights16[8]
-
-midsyn10 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-midsyn10.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[9])
-midsyn10.g_synmax=myweights16[9]
-
-shapesyn1 = Synapses(midneur16, whichshape16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-shapesyn1.connect(i=[0,1,2,3,4,5,6,7,8,9],j=[0])
-shapesyn1.g_synmax=myweightsout[0]
-
-shapesyn2 = Synapses(midneur16, whichshape16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-shapesyn2.connect(i=[0,1,2,3,4,5,6,7,8,9],j=[1])
-shapesyn2.g_synmax=myweightsout[1]
-
-shapesyn3 = Synapses(midneur16, whichshape16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
-shapesyn3.connect(i=[0,1,2,3,4,5,6,7,8,9],j=[2])
-shapesyn3.g_synmax=myweightsout[2]
+#midsyn1 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+#midsyn1.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[0])
+#midsyn1.g_synmax=myweights16[0]
+#
+#midsyn2 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+#midsyn2.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[1])
+#midsyn2.g_synmax=myweights16[1]
+#
+#midsyn3 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+#midsyn3.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[2])
+#midsyn3.g_synmax=myweights16[2]
+#
+#midsyn4 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+#midsyn4.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[3])
+#midsyn4.g_synmax=myweights16[3]
+#
+#midsyn5 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+#midsyn5.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[4])
+#midsyn5.g_synmax=myweights16[4]
+#
+#midsyn6 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+#midsyn6.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[5])
+#midsyn6.g_synmax=myweights16[5]
+#
+#midsyn7 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+#midsyn7.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[6])
+#midsyn7.g_synmax=myweights16[6]
+#
+#midsyn8 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+#midsyn8.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[7])
+#midsyn8.g_synmax=myweights16[7]
+#
+#midsyn9 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+#midsyn9.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[8])
+#midsyn9.g_synmax=myweights16[8]
+#
+#midsyn10 = Synapses(sumneur, midneur16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+#midsyn10.connect(i=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],j=[9])
+#midsyn10.g_synmax=myweights16[9]
+#
+#shapesyn1 = Synapses(midneur16, whichshape16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+#shapesyn1.connect(i=[0,1,2,3,4,5,6,7,8,9],j=[0])
+#shapesyn1.g_synmax=myweightsout[0]
+#
+#shapesyn2 = Synapses(midneur16, whichshape16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+#shapesyn2.connect(i=[0,1,2,3,4,5,6,7,8,9],j=[1])
+#shapesyn2.g_synmax=myweightsout[1]
+#
+#shapesyn3 = Synapses(midneur16, whichshape16, clock=sensors.clock,model='''g_synmax: 1 ''', on_pre=''' z_exc+= g_synmax ''')
+#shapesyn3.connect(i=[0,1,2,3,4,5,6,7,8,9],j=[2])
+#shapesyn3.g_synmax=myweightsout[2]
 
 ################################## STATE MONITORS #############################
 
-MS = StateMonitor(sensors, ('v', 'I'), record=True)
-#Mfilt1=StateMonitor(filt1, ('v','synI_exc'), record=True)
-#Mfilt2=StateMonitor(filt2, ('v'), record=True)
-#Mfilt3=StateMonitor(filt3, ('v'), record=True)
-#Mfilt4=StateMonitor(filt4, ('v'), record=True)
-Msum=StateMonitor(sumneur, ('v'), record=True)
-Mmid=StateMonitor(midneur16, ('v'), record=True)
-Mshape=StateMonitor(whichshape16, ('v'), record=True)
 
-#spike_sensors = SpikeMonitor(sensors)
-#spike_filt1 = SpikeMonitor(filt1)
-#spike_filt2 = SpikeMonitor(filt2)
-#spike_filt3 = SpikeMonitor(filt3)
-#spike_filt4 = SpikeMonitor(filt4)
+#Msum=StateMonitor(sumneur, ('v'), record=True)
 spike_sum = SpikeMonitor(sumneur)
-spike_mid16 = SpikeMonitor(midneur16)
-spike_shape16 = SpikeMonitor(whichshape16)
-
-
 run(duration)
 
-
-print " " 
-
-
-#weightsout=numpy.array(weightsout)
-#mysumpercent=numpy.array(spike_shape16.count).astype(float)/88
-myshapepercent=(numpy.array(spike_shape16.count).astype(float).tolist()/(sum(spike_shape16.count)))
-myerror=((myshapepercent[0]-idealans[0])**2+(myshapepercent[1]-idealans[1])**2+(myshapepercent[2]-idealans[2])**2) ## for triangle
-print numpy.array(spike_shape16.count).tolist(), myshapepercent, int(100*myerror)
-print " " 
-#mysumpercent=numpy.array(1/(1+exp(-((numpy.array(spike_sum.count).astype(float)**(0.35)*2)-7))))
-mysumpercent=numpy.array(spike_sum.count).astype(float)/88
-midnums=numpy.dot(mysumpercent,(numpy.transpose((numpy.array(weight16)*5)**3))) #this should be 8 numbers in a row... tbhidk
-mymidpercent=(1/(1+exp(-(midnums*10-3)))) #8 numbers  ## maybe subtract a num....idk
-shapenums=numpy.dot(mymidpercent,(numpy.transpose((numpy.array(weightsout)*5)**3)))
-myshapepercentother=(1/(1+exp(-(shapenums*10-3)))) ## 3 numbers
-print "sum numbers" 
 print numpy.array(spike_sum.count).tolist()
-print mysumpercent 
-print "mid numbers" 
-print numpy.array(spike_mid16.count).tolist()
-print midnums
-print mymidpercent
-print "shape numbers" 
-print shapenums
-print myshapepercentother
 
 
-#print "figure 2 shows the sensor neurons firing"
-#figure(2)
-#for x in range(0,36):
-#    subplot(6,6,(x+1))
-#    plot(MS.t/ms, MS.v[x])
-#    axis([0,1000,-80,30])
-    
-##print "figure 3 shows filter 1 (up/down)"
-#uncomment the statemonitors!!!!!
-#figure(3)
-#for x in range(0,16):
-#    subplot(4,4,(x+1))
-#    plot(Mfilt1.t/ms, Mfilt1.v[x])
-#    axis([0,1000,-80,30])
-#   
-##print "figure 4 shows filter 2 (left/right)"
-#figure(4)
-#for x in range(0,16):
-#    subplot(4,4,(x+1))
-#    plot(Mfilt2.t/ms, Mfilt2.v[x])
-#    axis([0,1000,-80,30])
-#
-##print "figure 5 shows filter 3 (diagonal going down)"
-#figure(5)
-#for x in range(0,16):
-#    subplot(4,4,(x+1))
-#    plot(Mfilt3.t/ms, Mfilt3.v[x])
-#    axis([0,1000,-80,30])
-#
-##print "figure 6 shows filter 4 (diagonal going up)"
-#figure(6)
-#for x in range(0,16):
-#    subplot(4,4,(x+1))
-#    plot(Mfilt4.t/ms, Mfilt4.v[x])
-#    axis([0,1000,-80,30])
-
-##print "figure 7 shows the 16 sum neurons (row 1 for filter 1 ...)"    
-#figure(7)
-#for x in range(0,16):
-#    subplot(4,4,(x+1))
-#    plot(Msum.t/ms, Msum.v[x])
-#    axis([0,1000,-80,30])
-#
-#
-#
-##print "figure 9 shows the mid neurons (not ready yet)"
-#figure(9)
-#for x in range(0,10):
-#    subplot(2,5,(x+1))
-#    plot(Mmid.t/ms, Mmid.v[x])
-#    axis([0,1000,-80,30])
-
-#print "figure 10 shows the final answer neurons (not ready yet)"
-#figure(10)
-#for x in range(0,3):
-#    subplot(1,3,(x+1))
-#    plot(Mshape.t/ms, Mshape.v[x])
-#    axis([0,1000,-80,30])
-    
 
 
 

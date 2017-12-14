@@ -226,7 +226,7 @@ execfile("sense_filter_sum_learn.py")
 print " "
 
 
-for myrunningcount in range(0,2):
+for myrunningcount in range(0,5):
     print " " 
     print myrunningcount
     print weight16
@@ -251,9 +251,9 @@ for myrunningcount in range(0,2):
     mypixel = shapes_normal[2]
     idealans=[0,0,1]
     execfile("sense_filter_sum_learn.py")
-    for othercoutzzz in range(0,5):
-        execfile("singleiteration.py")
-    for somenum in range(0,36):
+    for othercoutzzz in range(0,10):
+        execfile("singleit18.py")
+    for somenum in range(0,6):
         myerror_tri[(somenum*3)].append(thisroundoferror[(somenum*9)])
         myerror_tri[(somenum*3)+1].append(thisroundoferror[(somenum*9)+1])
         myerror_tri[(somenum*3)+2].append(thisroundoferror[(somenum*9)+2])
@@ -265,8 +265,7 @@ for myrunningcount in range(0,2):
         myerror_cir[(somenum*3)+2].append(thisroundoferror[(somenum*9)+8])
 
 
-
-for myrunningcount in range(0,6):
+for myrunningcount in range(0,10):
     print " " 
     print myrunningcount
     print weight16
@@ -291,9 +290,9 @@ for myrunningcount in range(0,6):
     mypixel = shapes_normal[2]
     idealans=[0,0,1]
     execfile("sense_filter_sum_learn.py")
-    for othercoutzzz in range(0,8):
-        execfile("singleiteration.py")
-    for somenum in range(0,36):
+    for othercoutzzz in range(0,10):
+        execfile("singleit30.py")
+    for somenum in range(0,10):
         myerror_tri[(somenum*3)].append(thisroundoferror[(somenum*9)])
         myerror_tri[(somenum*3)+1].append(thisroundoferror[(somenum*9)+1])
         myerror_tri[(somenum*3)+2].append(thisroundoferror[(somenum*9)+2])
@@ -303,44 +302,8 @@ for myrunningcount in range(0,6):
         myerror_cir[(somenum*3)].append(thisroundoferror[(somenum*9)+6])
         myerror_cir[(somenum*3)+1].append(thisroundoferror[(somenum*9)+7])
         myerror_cir[(somenum*3)+2].append(thisroundoferror[(somenum*9)+8])
-#for myrunningcount in range(0,5):
-#    print " " 
-#    print myrunningcount
-#    print weight16
-#    print weightsout
-#    mynew_weightout_neverused.append(weightsout.tolist())
-#    mynew_weight16_neverused.append([weight16[0].tolist(),
-#                                     weight16[1].tolist(),
-#                                     weight16[2].tolist(),
-#                                     weight16[3].tolist(),
-#                                     weight16[4].tolist(),
-#                                     weight16[5].tolist(),
-#                                     weight16[6].tolist(),
-#                                     weight16[7].tolist(),
-#                                     weight16[8].tolist(),
-#                                     weight16[9].tolist()])
-#    mypixel = shapes_normal[0]
-#    idealans=[1,0,0]
-#    execfile("sense_filter_sum_learn.py")
-#    mypixel = shapes_normal[1]
-#    idealans=[0,1,0]
-#    execfile("sense_filter_sum_learn.py")
-#    mypixel = shapes_normal[2]
-#    idealans=[0,0,1]
-#    execfile("sense_filter_sum_learn.py")
-#    for othercoutzzz in range(0,10):
-#        execfile("singleiteration.py")
-#    for somenum in range(0,36):
-#        myerror_tri[(somenum*3)].append(thisroundoferror[(somenum*9)])
-#        myerror_tri[(somenum*3)+1].append(thisroundoferror[(somenum*9)+1])
-#        myerror_tri[(somenum*3)+2].append(thisroundoferror[(somenum*9)+2])
-#        myerror_squ[(somenum*3)].append(thisroundoferror[(somenum*9)+3])
-#        myerror_squ[(somenum*3)+1].append(thisroundoferror[(somenum*9)+4])
-#        myerror_squ[(somenum*3)+2].append(thisroundoferror[(somenum*9)+5])
-#        myerror_cir[(somenum*3)].append(thisroundoferror[(somenum*9)+6])
-#        myerror_cir[(somenum*3)+1].append(thisroundoferror[(somenum*9)+7])
-#        myerror_cir[(somenum*3)+2].append(thisroundoferror[(somenum*9)+8])
-    
+
+
 #[34, 34, 34, 34, 34, 34, 32, 32, 0, 34, 34, 20, 34, 0, 20, 34]  #triangle
 #[0, 0, 0, 0, 0, 0, 0, 0, 20, 34, 34, 20, 34, 20, 20, 34]        #square
 #[0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 34, 0, 34, 0, 0, 34]            #circle

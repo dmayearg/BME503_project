@@ -116,6 +116,10 @@ weight16[7]=clip(weight16[7]+(0.05*mysumpercent*gradmid[7]),-0.2,0.2)
 weight16[8]=clip(weight16[8]+(0.05*mysumpercent*gradmid[8]),-0.2,0.2)
 weight16[9]=clip(weight16[9]+(0.05*mysumpercent*gradmid[9]),-0.2,0.2)
 
+#print numpy.array(spike_sum.count).tolist()
+#print numpy.array(spike_mid16.count).tolist()
+#print numpy.array(spike_shape16.count).tolist()
+#print int(100*myerror)
 
 show()
 

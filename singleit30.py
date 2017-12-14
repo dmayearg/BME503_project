@@ -181,20 +181,14 @@ execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 
 
-
-
-
-
-
-
 idealans=[1,0,0]
-mypixel = triround_1[9]
+mypixel = triround_1[16]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
-mypixel = triround_1[14]
+mypixel = triround_1[17]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
-mypixel = triround_1[30]
+mypixel = triround_1[18]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 idealans=[0,1,0]
@@ -204,7 +198,7 @@ thisroundoferror.append(int(100*myerror))
 mypixel = squround_1[14]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
-mypixel = squround_1[40]
+mypixel = squround_1[43]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 idealans=[0,0,1]
@@ -218,17 +212,47 @@ thisroundoferror.append(int(100*myerror))
 
 
 idealans=[1,0,0]
-mypixel = triround_1[31]
+mypixel = triround_1[19]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
+mypixel = triround_1[42]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+mypixel = triround_1[43]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+idealans=[0,1,0]
+mypixel = squround_1[44]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+mypixel = squround_1[45]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+mypixel = squround_1[46]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+idealans=[0,0,1]
+mypixel = shapes_normal[2]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
+
+
+idealans=[1,0,0]
 mypixel = triround_2[0]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 mypixel = triround_2[1]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
+mypixel = triround_2[2]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
 idealans=[0,1,0]
-mypixel = squround_1[43]
+mypixel = squround_2[21]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 mypixel = squround_2[22]
@@ -248,53 +272,23 @@ thisroundoferror.append(int(100*myerror))
 
 
 idealans=[1,0,0]
-mypixel = triround_2[7]
+mypixel = triround_2[3]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
-mypixel = triround_2[10]
+mypixel = triround_2[4]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
-mypixel = triround_2[11]
+mypixel = triround_2[5]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 idealans=[0,1,0]
+mypixel = squround_2[24]
+execfile("learning_stuff.py")
+thisroundoferror.append(int(100*myerror))
 mypixel = squround_2[25]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 mypixel = squround_2[26]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-mypixel = squround_2[27]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-idealans=[0,0,1]
-mypixel = shapes_normal[2]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-
-
-idealans=[1,0,0]
-mypixel = triround_2[12]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-mypixel = triround_2[16]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-mypixel = triround_2[17]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-idealans=[0,1,0]
-mypixel = squround_2[29]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-mypixel = squround_2[30]
-execfile("learning_stuff.py")
-thisroundoferror.append(int(100*myerror))
-mypixel = squround_2[31]
 execfile("learning_stuff.py")
 thisroundoferror.append(int(100*myerror))
 idealans=[0,0,1]
