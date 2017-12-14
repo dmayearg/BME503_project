@@ -267,9 +267,9 @@ for training_limit in range(0,2):
             myshapeidealans=numpy.array(idealansmatrix[x])
             #mysumpercent=numpy.array(1/(1+exp(-((numpy.array(myshapesums).astype(float)**(0.35)*2)-7))))
             mysumpercent=numpy.array(myshapesums).astype(float)/88
-            midnums=numpy.dot(mysumpercent,(numpy.transpose((numpy.array(weight16)*5)**3)))  #this should be 8 numbers in a row... tbhidk
+            midnums=numpy.dot(mysumpercent,(numpy.transpose((numpy.array(weight16)))))  #this should be 8 numbers in a row... tbhidk
             mymidpercent=(1/(1+exp(-(midnums*10-3)))) #8 numbers  ## maybe subtract a num....idk
-            shapenums=numpy.dot(mymidpercent,(numpy.transpose((numpy.array(weightsout)*5)**3)))
+            shapenums=numpy.dot(mymidpercent,(numpy.transpose((numpy.array(weightsout)))))
             myshapepercent=(1/(1+exp(-(shapenums*10-3)))) ## 3 numbers
             myerror=((myshapepercent[0]-myshapeidealans[0])**2+(myshapepercent[1]-myshapeidealans[1])**2+(myshapepercent[2]-myshapeidealans[2])**2) ## for triangle
             # print int(100*myerror)
@@ -298,9 +298,9 @@ for x in range(0,90):
     #mysumpercent=numpy.array(1/(1+exp(-(log(numpy.array(myshapesums)+1)*2.5-7))))
     mysumpercent=numpy.array(myshapesums).astype(float)/88
     #mysumpercent=numpy.array(1/(1+exp(-((numpy.array(myshapesums).astype(float)**(0.35)*2)-7))))
-    midnums=numpy.dot(mysumpercent,(numpy.transpose((numpy.array(weight16)*5)**3)))  #this should be 8 numbers in a row... tbhidk
+    midnums=numpy.dot(mysumpercent,(numpy.transpose((numpy.array(weight16)))))  #this should be 8 numbers in a row... tbhidk
     mymidpercent=(1/(1+exp(-(midnums*10-3)))) #8 numbers  ## maybe subtract a num....idk
-    shapenums=numpy.dot(mymidpercent,(numpy.transpose((numpy.array(weightsout)*5)**3)))
+    shapenums=numpy.dot(mymidpercent,(numpy.transpose((numpy.array(weightsout)))))
     myshapepercent=(1/(1+exp(-(shapenums*10-3)))) ## 3 numbers
 #    print myshapesums
 #    print mysumpercent

@@ -298,9 +298,9 @@ print numpy.array(spike_shape16.count).tolist(), myshapepercent, int(100*myerror
 print " " 
 #mysumpercent=numpy.array(1/(1+exp(-((numpy.array(spike_sum.count).astype(float)**(0.35)*2)-7))))
 mysumpercent=numpy.array(spike_sum.count).astype(float)/88
-midnums=numpy.dot(mysumpercent,(numpy.transpose((numpy.array(weight16)*5)**3))) #this should be 8 numbers in a row... tbhidk
+midnums=numpy.dot(mysumpercent,(numpy.transpose((numpy.array(weight16))))) #this should be 8 numbers in a row... tbhidk
 mymidpercent=(1/(1+exp(-(midnums*10-3)))) #8 numbers  ## maybe subtract a num....idk
-shapenums=numpy.dot(mymidpercent,(numpy.transpose((numpy.array(weightsout)*5)**3)))
+shapenums=numpy.dot(mymidpercent,(numpy.transpose((numpy.array(weightsout)))))
 myshapepercentother=(1/(1+exp(-(shapenums*10-3)))) ## 3 numbers
 print "sum numbers" 
 print numpy.array(spike_sum.count).tolist()
