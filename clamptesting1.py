@@ -467,11 +467,11 @@ shapesyn3.w=weightsout[2]
 mycount=1
 # @network_operation(dt=1005*ms)
 # def printWeights():
-#     print shapesyn1.w
-#     print mypixel
-#     print idealans
+#     print(shapesyn1.w
+#     print(mypixel
+#     print(idealans
 
-#    print sum(shapesyn1.apre), sum(shapesyn1.apost),sum(shapesyn2.apre), sum(shapesyn2.apost),sum(shapesyn3.apre), sum(shapesyn3.apost)
+#    print(sum(shapesyn1.apre), sum(shapesyn1.apost),sum(shapesyn2.apre), sum(shapesyn2.apost),sum(shapesyn3.apre), sum(shapesyn3.apost)
 #    return
 
 
@@ -540,13 +540,13 @@ def update_stuff():
     whichshape16.u = c*b
     whichshape16.g_exc = 0
     whichshape16.z_exc = 0
-    #print mypixel
-    #print idealans
-#     print mycount
-#     print idealans
-#     print ((numpy.array(shapesyn1.w)*100000).astype(int)).astype(float)/1000
-#     print ((numpy.array(shapesyn2.w)*100000).astype(int)).astype(float)/1000
-#     print ((numpy.array(shapesyn3.w)*100000).astype(int)).astype(float)/1000
+    #print(mypixel
+    #print(idealans
+#     print(mycount
+#     print(idealans
+#     print(((numpy.array(shapesyn1.w)*100000).astype(int)).astype(float)/1000
+#     print(((numpy.array(shapesyn2.w)*100000).astype(int)).astype(float)/1000
+#     print(((numpy.array(shapesyn3.w)*100000).astype(int)).astype(float)/1000
     return
 
 
@@ -555,7 +555,7 @@ printNum = 0
 def writeFile():
     global printNum
     
-    title_str = "Print Number: %d\n" %(printNum)
+    title_str = "print(Number: %d\n" %(printNum)
     x = open('current_outputs.txt', 'a')
     all_weights = [title_str,\
         str((numpy.array(shapesyn1.w)*100).astype(int)) + ',\n',\
@@ -595,19 +595,19 @@ all_weights = ["Final Iteration: \n",\
     str(numpy.array(midsyn10.w).tolist()) + ',\n\n']
 x.writelines(all_weights)
 
-print numpy.array(shapesyn1.w)
-print numpy.array(shapesyn2.w)
-print numpy.array(shapesyn3.w)
+print(numpy.array(shapesyn1.w))
+print(numpy.array(shapesyn2.w))
+print(numpy.array(shapesyn3.w))
 
-print numpy.array(midsyn1.w)
-print numpy.array(midsyn2.w)
-print numpy.array(midsyn3.w)
-print numpy.array(midsyn4.w)
-print numpy.array(midsyn5.w)
-print numpy.array(midsyn6.w)
-print numpy.array(midsyn7.w)
-print numpy.array(midsyn8.w)
-print numpy.array(midsyn9.w)
-print numpy.array(midsyn10.w)
+print(numpy.array(midsyn1.w))
+print(numpy.array(midsyn2.w))
+print(numpy.array(midsyn3.w))
+print(numpy.array(midsyn4.w))
+print(numpy.array(midsyn5.w))
+print(numpy.array(midsyn6.w))
+print(numpy.array(midsyn7.w))
+print(numpy.array(midsyn8.w))
+print(numpy.array(midsyn9.w))
+print(numpy.array(midsyn10.w))
 
 show()
