@@ -1,4 +1,5 @@
 from brian2.core.operations import network_operation
+from sympy.strategies.core import switch
 
 #from brian2 import *
 #import matplotlib.pyplot as plt
@@ -35,6 +36,7 @@ shapedatamatrix=[triround_1[0],triround_1[4],triround_1[5],
                  triround_2[12],triround_2[16],triround_2[17],
                  squround_2[10],squround_2[12],squround_2[15],
                  shapes_normal[2],shapes_normal[2],shapes_normal[2]]
+
 
 idealansmatrix=[[1,0,0],[1,0,0],[1,0,0],
                 [0,1,0],[0,1,0],[0,1,0],
@@ -84,8 +86,8 @@ sens_tau_decay=1.5*ms ## maybe 1 for all or 2 ?
 filt_tau_decay=2*ms
 sum_tau_decay=2*ms
 taupre=5*ms 
-taupost=20*ms
-Apre = 0.001
+taupost=10*ms
+Apre = 0.00001
 Apost = -Apre*1.05
 
 sensormag=2.2 ## the very minimum is 1.3 for it to fire with 3 inputs to make sensor neuron fire
@@ -236,7 +238,7 @@ midneur16.tau_decay = sum_tau_decay
 
 
 shape_equ = '''
-dv/dt = ((0.04*v*v) + ( 5*v) + (140) - u + synI_exc + clampedcurrent)/ms : 1
+dv/dt = ((0.04*v*v) + ( 5*v) + (140) - u + (synI_exc/10) + clampedcurrent)/ms : 1
 du/dt = a*((b*v)-u)/ms : 1
 dg_exc/dt= (-g_exc/tau_decay) + (z_exc/ms) : 1 
 dz_exc/dt = -z_exc/tau_decay : 1
@@ -469,18 +471,29 @@ mycount=1
 #     print mypixel
 #     print idealans
 
+#    print sum(shapesyn1.apre), sum(shapesyn1.apost),sum(shapesyn2.apre), sum(shapesyn2.apost),sum(shapesyn3.apre), sum(shapesyn3.apost)
+#    return
+
+
+switch =  0
+limit = 54
 @network_operation(dt=1000*ms)
 def update_stuff():
     global mycount
     global mypixel
     global idealans
+    global switch
+    global limit
+    switch = switch+1
+    if switch > 5400 and mycount == 0:
+        limit = 90
     mypixel=shapedatamatrix[mycount] ### update the shape 
     idealans=idealansmatrix[mycount] ### update the ideal output 
     whichshape16.clampedcurrent[0]=idealans[0]*8
     whichshape16.clampedcurrent[1]=idealans[1]*8
     whichshape16.clampedcurrent[2]=idealans[2]*8
     mycount=mycount+1
-    if mycount == 54:
+    if mycount == limit:
         mycount = 0
     for x in range (0,6):
         for y in range (0,6):
@@ -529,13 +542,58 @@ def update_stuff():
     whichshape16.z_exc = 0
     #print mypixel
     #print idealans
-    print shapesyn1.w
-    print shapesyn2.w
-    print shapesyn3.w
-    print mycount
+#     print mycount
+#     print idealans
+#     print ((numpy.array(shapesyn1.w)*100000).astype(int)).astype(float)/1000
+#     print ((numpy.array(shapesyn2.w)*100000).astype(int)).astype(float)/1000
+#     print ((numpy.array(shapesyn3.w)*100000).astype(int)).astype(float)/1000
     return
 
-run(5400*second) ## run for a really long time 
+
+printNum = 0
+@network_operation(dt = 585*second)
+def writeFile():
+    global printNum
+    
+    title_str = "Print Number: %d\n" %(printNum)
+    x = open('current_outputs.txt', 'a')
+    all_weights = [title_str,\
+        str((numpy.array(shapesyn1.w)*100).astype(int)) + ',\n',\
+        str((numpy.array(shapesyn2.w)*100).astype(int)) + ',\n',\
+        str((numpy.array(shapesyn3.w)*100).astype(int)) + ',\n\n',\
+        str((numpy.array(midsyn1.w)*100).astype(int)) + ',\n',\
+        str((numpy.array(midsyn2.w)*100).astype(int)) + ',\n',\
+        str((numpy.array(midsyn3.w)*100).astype(int)) + ',\n',\
+        str((numpy.array(midsyn4.w)*100).astype(int)) + ',\n',\
+        str((numpy.array(midsyn5.w)*100).astype(int)) + ',\n',\
+        str((numpy.array(midsyn6.w)*100).astype(int)) + ',\n',\
+        str((numpy.array(midsyn7.w)*100).astype(int)) + ',\n',\
+        str((numpy.array(midsyn8.w)*100).astype(int)) + ',\n',\
+        str((numpy.array(midsyn9.w)*100).astype(int)) + ',\n',\
+        str((numpy.array(midsyn10.w)*100).astype(int)) + ',\n\n']
+    
+    printNum+=1
+    x.writelines(all_weights)
+    return
+
+run(14400*second) ## run for a really long time 
+
+x = open('output.txt', 'w')
+all_weights = ["Final Iteration: \n",\
+    str(numpy.array(shapesyn1.w).tolist()) + ',\n',\
+    str(numpy.array(shapesyn2.w).tolist()) + ',\n',\
+    str(numpy.array(shapesyn3.w).tolist()) + ',\n\n',\
+    str(numpy.array(midsyn1.w).tolist()) + ',\n',\
+    str(numpy.array(midsyn2.w).tolist()) + ',\n',\
+    str(numpy.array(midsyn3.w).tolist()) + ',\n',\
+    str(numpy.array(midsyn4.w).tolist()) + ',\n',\
+    str(numpy.array(midsyn5.w).tolist()) + ',\n',\
+    str(numpy.array(midsyn6.w).tolist()) + ',\n',\
+    str(numpy.array(midsyn7.w).tolist()) + ',\n',\
+    str(numpy.array(midsyn8.w).tolist()) + ',\n',\
+    str(numpy.array(midsyn9.w).tolist()) + ',\n',\
+    str(numpy.array(midsyn10.w).tolist()) + ',\n\n']
+x.writelines(all_weights)
 
 print numpy.array(shapesyn1.w)
 print numpy.array(shapesyn2.w)
@@ -553,4 +611,3 @@ print numpy.array(midsyn9.w)
 print numpy.array(midsyn10.w)
 
 show()
-
