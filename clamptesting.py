@@ -3,6 +3,8 @@ from sympy.strategies.core import switch
 import numpy as np
 from ShapeClass import shapeclass
 from NetworkParameters import*
+import matplotlib.pyplot as plt
+import random
 
 from brian2 import *
 #import matplotlib.pyplot as plt
@@ -24,8 +26,8 @@ idealans = []
 mypixel=shapedatamatrix[0] ### update the shape 
 idealans=idealansmatrix[0] ### update the ideal output 
 
-weights2hid = 2*weights_random*(np.random.random((hid_size,pool_size)) - 0.5)
-weightsout = 2*weights_random*(np.random.random((out_size,hid_size))-0.5)
+weights2hid = 2*(np.random.random((hid_size,pool_size)))
+weightsout = 2*(np.random.random((out_size,hid_size)))
 
 ##############################################################################
 ################################## NEURONS ##################################
@@ -111,7 +113,6 @@ filt4.u = c*b
 filt4.tau_decay = filt_tau_decay
 #filt4.g_exc=0  
 
-
 sum_equ = '''
 dv/dt = ((0.04*v*v) + ( 5*v) + (140) - u + synI_exc)/ms : 1
 du/dt = a*((b*v)-u)/ms : 1
@@ -126,8 +127,6 @@ sumneur = NeuronGroup(pool_size, sum_equ, clock=Clock(dt_sim), method='euler',th
 sumneur.v = c
 sumneur.u = c*b
 sumneur.tau_decay = sum_tau_decay
-
-
 
 midneur16 = NeuronGroup(hid_size, sum_equ, clock=Clock(dt_sim), method='euler',threshold = 'v >= 30', 
             reset = '''v = c; u = u + d ''')
@@ -197,7 +196,6 @@ syn_sum4.connect(i=[8, 9,12,13],j=[14])
 syn_sum4.connect(i=[10,11,14,15],j=[15])
 syn_sum4.g_synmax=sumg_synmaxval
 
-
 ######################### the crazy synapses ###########################
 syn_eqns = '''
 g_synmax: 1
@@ -207,37 +205,41 @@ dapre/dt=-apre/taupre : 1
 dapost/dt=-apost/taupost : 1
 '''
 ######################### ADD THE ON_PRE  AND ON_POST TRACES 
-hidden_connections = []
-for i in range(0,hid_size):
-  current_synapse = Synapses(sumneur, midneur16, clock=sensors.clock,
-                   model= syn_eqns, 
-                   on_pre=''' z_exc+= w 
-                              apre += Apre
-                              w = clip(w+apost, -wmax, wmax)''',
-                   on_post='''apost += Apost
-                              w = clip(w+apre, -wmax, wmax)''')
-  current_synapse.connect(i=range(0,pool_size),j=[i])
-  current_synapse.w=weights2hid[i]
-  hidden_connections.append(current_synapse)
+hidden_connections = Synapses(sumneur, midneur16, clock=sensors.clock,
+                 model= syn_eqns, 
+                 on_pre=''' g_exc += w
+                            z_exc += g_synmax
+                            apre += Apre
+                            w = clip(w+reward*apost, 0, wmax)''',
+                 on_post='''apost += Apost
+                            w = clip(w+reward*apre, 0, wmax)''')
+hidden_connections.connect()
+hidden_connections.g_synmax = learng_synmaxval
+hidden_connections.w = weights2hid
+hidden_connections.reward = 0
 
-## Synapses from the Hidden layer to the Final output layer
-out_connections = []
-for i in range(0,out_size):
-  current_synapse = Synapses(midneur16, whichshape16, clock=sensors.clock,
-                   model= syn_eqns, 
-                   on_pre=''' z_exc+= w 
-                              apre += Apre
-                              w = clip(w+apost, -wmax, wmax)''',
-                   on_post='''apost += Apost
-                              w = clip(w+apre, -wmax, wmax)''')
-  current_synapse.connect(i=range(0,hid_size),j=[i])
-  current_synapse.w=weightsout[i]
-  out_connections.append(current_synapse)
+out_connections = Synapses(midneur16, whichshape16, clock=sensors.clock,
+                 model= syn_eqns, 
+                 on_pre=''' g_exc += w
+                            z_exc += g_synmax
+                            apre += Apre
+                            w = clip(w+reward*apost, 0, wmax)''',
+                 on_post='''apost += Apost
+                            w = clip(w+reward*apre, 0, wmax)''')
+out_connections.connect()
+out_connections.g_synmax = learng_synmaxval
+out_connections.w = weightsout
+out_connections.reward = 0
 
-print(len(hidden_connections))
-print(len(out_connections))
+print(size(hidden_connections))
+print(size(out_connections))
+M = StateMonitor(whichshape16,('v','g_exc'),record=True)
+M_hid = StateMonitor(midneur16,('v','g_exc'),record=True)
+M_sum = StateMonitor(sumneur,('v','g_exc'),record=True)
+spike = SpikeMonitor(whichshape16)
+#S_tohid = StateMonitor(hidden_connections,('w'),record=True))
+#S_toout = StateMonitor(out_connections,('w'),record=True))
 
-mycount=1
 # @network_operation(dt=1005*ms)
 # def printWeights():
 #     print(shapesyn1.w
@@ -247,12 +249,56 @@ mycount=1
 #    print(sum(shapesyn1.apre), sum(shapesyn1.apost),sum(shapesyn2.apre), sum(shapesyn2.apost),sum(shapesyn3.apre), sum(shapesyn3.apost)
 #    return
 
-@network_operation(dt=dt_sim)
+@network_operation(dt=dt_sim*10)
 def update_reinforce():
-  sldfkj
+  idealans = idealansmatrix[0]
+  #for i in out_connections:
+  #  print(i.w)
+    #print(i.reward)
+  complexreward = [];
+  for i in range(0,out_size):
+    indices = [j for j, x in enumerate(spike.t/ms) if x==i]
+    if indices:
+      lastindex = indices[len(indices)-1]
+      if spike[lastindex].t/ms == M[i].t[len(M[i].t/ms)-1]/ms:
+        if idealans[i]==1:
+          complexreward.append(1)
+          out_connections[i].reward=1
+        else:
+          complexreward.append(-1)
+          out_connections[i].reward=-1
+      elif not (spike[lastindex].t/ms > M[i].t[len(M[i].t/ms)-1]/ms - 20):
+        if idealans[i] == 1:
+          complexreward.append[-1]
+          out_connections[i].reward=-1
+        else:
+          complexreward.append(1)
+          out_connections[i].reward=1
+    else:
+      complexreward = 1
+      out_connections[i].reward = 1
+
+  complexreward = np.mean(np.array(complexreward))
+  for k in hidden_connections:
+    k.reward = complexreward
+  #print("complex",complexreward)
+
+@network_operation(dt=dt_sim*10)
+def update_normalize():
+  for i in hidden_connections:
+    i.w = clip(i.w,0,wmax)
+    normalize = np.sum(np.sum(i.w))
+    i.w = 2*i.w/normalize
+
+  for i in out_connections:
+    i.w = clip(i.w,0,wmax)
+    normalize = np.sum(np.sum(i.w))
+    i.w = 2*i.w/normalize
+
 
 switch =  0
 limit = len(shapedatamatrix)
+mycount=1
 @network_operation(dt=1000*ms)
 def update_stuff():
     global mycount
@@ -263,8 +309,8 @@ def update_stuff():
     switch = switch+1
     if switch > 5400 and mycount == 0:
         limit = 90
-    mypixel=shapedatamatrix[mycount] ### update the shape 
-    idealans=idealansmatrix[mycount] ### update the ideal output 
+    mypixel=shapedatamatrix[0] ### update the shape 
+    idealans=idealansmatrix[0] ### update the ideal output 
     #whichshape16.clampedcurrent[0]=idealans[0]*8
     #whichshape16.clampedcurrent[1]=idealans[1]*8
     #whichshape16.clampedcurrent[2]=idealans[2]*8
@@ -326,54 +372,91 @@ def update_stuff():
     return
 
 
-printNum = 0
-@network_operation(dt = 585*second)
-def writeFile():
-    global printNum
+# printNum = 0
+# @network_operation(dt = 585*second)
+# def writeFile():
+#     global printNum
     
-    title_str = "Print Number: %d\n" %(printNum)
-    x = open('current_outputs.txt', 'a')
-    all_weights = [title_str,\
-        str((np.array(out_connections[0].w)*100).astype(int)) + ',\n',\
-        str((np.array(out_connections[1].w)*100).astype(int)) + ',\n',\
-        str((np.array(out_connections[2].w)*100).astype(int)) + ',\n\n',\
-        str((np.array(hidden_connections[0].w)*100).astype(int)) + ',\n',\
-        str((np.array(hidden_connections[1].w)*100).astype(int)) + ',\n',\
-        str((np.array(hidden_connections[2].w)*100).astype(int)) + ',\n',\
-        str((np.array(hidden_connections[3].w)*100).astype(int)) + ',\n',\
-        str((np.array(hidden_connections[4].w)*100).astype(int)) + ',\n',\
-        str((np.array(hidden_connections[5].w)*100).astype(int)) + ',\n',\
-        str((np.array(hidden_connections[6].w)*100).astype(int)) + ',\n',\
-        str((np.array(hidden_connections[7].w)*100).astype(int)) + ',\n',\
-        str((np.array(hidden_connections[8].w)*100).astype(int)) + ',\n',\
-        str((np.array(hidden_connections[9].w)*100).astype(int)) + ',\n\n']
+#     title_str = "Print Number: %d\n" %(printNum)
+#     x = open('current_outputs.txt', 'a')
+#     all_weights = [title_str,\
+#         str((np.array(out_connections[0].w)*100).astype(int)) + ',\n',\
+#         str((np.array(out_connections[1].w)*100).astype(int)) + ',\n',\
+#         str((np.array(out_connections[2].w)*100).astype(int)) + ',\n\n',\
+#         str((np.array(hidden_connections[0].w)*100).astype(int)) + ',\n',\
+#         str((np.array(hidden_connections[1].w)*100).astype(int)) + ',\n',\
+#         str((np.array(hidden_connections[2].w)*100).astype(int)) + ',\n',\
+#         str((np.array(hidden_connections[3].w)*100).astype(int)) + ',\n',\
+#         str((np.array(hidden_connections[4].w)*100).astype(int)) + ',\n',\
+#         str((np.array(hidden_connections[5].w)*100).astype(int)) + ',\n',\
+#         str((np.array(hidden_connections[6].w)*100).astype(int)) + ',\n',\
+#         str((np.array(hidden_connections[7].w)*100).astype(int)) + ',\n',\
+#         str((np.array(hidden_connections[8].w)*100).astype(int)) + ',\n',\
+#         str((np.array(hidden_connections[9].w)*100).astype(int)) + ',\n\n']
     
-    printNum+=1
-    x.writelines(all_weights)
-    return
+#     printNum+=1
+#     x.writelines(all_weights)
+#     return
 
 run(duration) ## run for a really long time 
+figure(1)
+for i in range(0,hid_size):
+  plot(M_hid.t/ms,M_hid.v[i])
+  plot(M.t/ms,M.v[i])
+show()
 
-x = open('output.txt', 'w')
-all_weights = ["Final Iteration: \n",\
-    str(np.array(out_connections[0].w).tolist()) + ',\n',\
-    str(np.array(out_connections[1].w).tolist()) + ',\n',\
-    str(np.array(out_connections[2].w).tolist()) + ',\n\n',\
-    str(np.array(hidden_connections[0].w).tolist()) + ',\n',\
-    str(np.array(hidden_connections[1].w).tolist()) + ',\n',\
-    str(np.array(hidden_connections[2].w).tolist()) + ',\n',\
-    str(np.array(hidden_connections[3].w).tolist()) + ',\n',\
-    str(np.array(hidden_connections[4].w).tolist()) + ',\n',\
-    str(np.array(hidden_connections[5].w).tolist()) + ',\n',\
-    str(np.array(hidden_connections[6].w).tolist()) + ',\n',\
-    str(np.array(hidden_connections[7].w).tolist()) + ',\n',\
-    str(np.array(hidden_connections[8].w).tolist()) + ',\n',\
-    str(np.array(hidden_connections[9].w).tolist()) + ',\n\n']
-x.writelines(all_weights)
+# x = open('output.txt', 'w')
+# all_weights = ["Final Iteration: \n",\
+#     str(np.array(out_connections[0].w).tolist()) + ',\n',\
+#     str(np.array(out_connections[1].w).tolist()) + ',\n',\
+#     str(np.array(out_connections[2].w).tolist()) + ',\n\n',\
+#     str(np.array(hidden_connections[0].w).tolist()) + ',\n',\
+#     str(np.array(hidden_connections[1].w).tolist()) + ',\n',\
+#     str(np.array(hidden_connections[2].w).tolist()) + ',\n',\
+#     str(np.array(hidden_connections[3].w).tolist()) + ',\n',\
+#     str(np.array(hidden_connections[4].w).tolist()) + ',\n',\
+#     str(np.array(hidden_connections[5].w).tolist()) + ',\n',\
+#     str(np.array(hidden_connections[6].w).tolist()) + ',\n',\
+#     str(np.array(hidden_connections[7].w).tolist()) + ',\n',\
+#     str(np.array(hidden_connections[8].w).tolist()) + ',\n',\
+#     str(np.array(hidden_connections[9].w).tolist()) + ',\n\n']
+# x.writelines(all_weights)
 
-for i in out_connections:
-  print(np.array(i.w))
+# for i in out_connections:
+#   print(np.array(i.w))
 
-for i in hidden_connections:
-  print(np.array(i.w))
+# for i in hidden_connections:
+#   print(np.array(i.w))
 
+# hidden_connections = [None for _ in range(0,hid_size)]
+# for i in range(0,hid_size):
+#   current_synapse = Synapses(sumneur, midneur16, clock=sensors.clock,
+#                    model= syn_eqns, 
+#                    on_pre=''' g_exc += w
+#                               z_exc+= g_synmax
+#                               apre += Apre
+#                               w = clip(w+reward*apost, 0, wmax)''',
+#                    on_post='''apost += Apost
+#                               w = clip(w+reward*apre, 0, wmax)''')
+#   current_synapse.connect(i=range(0,pool_size),j=[i])
+#   current_synapse.w=weights2hid[i]
+#   current_synapse.g_synmax = learng_synmaxval
+#   current_synapse.reward = 0
+#   hidden_connections[i] = current_synapse
+
+# ## Synapses from the Hidden layer to the Final output layer
+# out_connections = [None for _ in range(0,out_size)]
+# for i in range(0,out_size):
+#   current_synapse = Synapses(midneur16, whichshape16, clock=sensors.clock,
+#                    model= syn_eqns, 
+#                    on_pre=''' g_exc += w
+#                               z_exc += g_synmax
+#                               apre += Apre
+#                               w = clip(w+reward*apost, 0, wmax)''',
+#                    on_post='''apost += Apost
+#                               w = clip(w+reward*apre, 0, wmax)''')
+#   current_synapse.connect(i=range(0,hid_size),j=[i])
+#   current_synapse.g_synmax = learng_synmaxval
+#   current_synapse.w=weightsout[i]
+#   current_synapse.reward = 0
+#   out_connections[i] = current_synapse

@@ -2,7 +2,6 @@ from brian2 import *
 import random
 import numpy as np 
 import matplotlib.pyplot as plt
-
   
 duration=4000*ms
 div=0.01*ms
@@ -31,13 +30,13 @@ stimlist=numpy.zeros(4000)
 # pulselist=numpy.arange(10,4000,40)
 # stimlist[pulselist]=1 
 
-pulselist=numpy.arange(510,1000,40)
+pulselist=numpy.arange(260,750,40)
 stimlist[pulselist]=1 
-pulselist2=numpy.arange(1510,2000,40)
+pulselist2=numpy.arange(1260,1750,40)
 stimlist[pulselist2]=1    
-pulselist2=numpy.arange(2510,3000,40)
+pulselist2=numpy.arange(2260,2750,40)
 stimlist[pulselist2]=1    
-pulselist2=numpy.arange(3510,4000,40)
+pulselist2=numpy.arange(3260,3750,40)
 stimlist[pulselist2]=1    
 
 #duration = .02*second
@@ -50,7 +49,7 @@ b = 0.2
 c = -65
 d = 2
 
-dt=0.1*ms
+dt=0.5*ms
 tau_ampa=2*ms
 tau_gaba=3*ms
 g_synpk=0.02
@@ -185,20 +184,20 @@ S2=StateMonitor(Sr2,('apre','apost','w'),record=True)
 spike = SpikeMonitor(Grs3)
 spiketarget = SpikeMonitor(Grs1)
 
-@network_operation(dt=1*ms)
+@network_operation(dt=dt)
 def update_normalize():
     normalize = Sr1.w+Sr2.w
     Sr1.w = Sr1.w/normalize
     Sr2.w = Sr2.w/normalize
     return
     
-@network_operation(dt=1*ms)
+@network_operation(dt=dt)
 def update_reward():
     if len(M.t/ms) != 0:
         if any(spike.t/ms>M.t[len(M.t/ms)-1]/ms-10) and any(spike.t/ms<M.t[len(M.t/ms)-1]/ms+10):
             if any(spiketarget.t/ms>M.t[len(M.t/ms)-1]/ms-10) and any(spiketarget.t/ms<M.t[len(M.t/ms)-1]/ms+10):
-                Sr1.reward = 1
-                Sr2.reward = 1
+                Sr1.reward = 1.1
+                Sr2.reward = 1.1
         else:
             Sr1.reward = -1
             Sr2.reward = -1
