@@ -1,13 +1,14 @@
 
-#from brian2 import *
-#import matplotlib.pyplot as plt
+
 
 ## declare the weight16 and weightsout
 ## declare the shape 
 #mypixel = triround_1[20]
 #figure(1)
-plt.imshow(mypixel,cmap='gray')
-plt.show()
+
+
+#plt.imshow(mypixel,cmap='gray')
+#plt.show()
 
 
 a = 0.1
@@ -300,18 +301,15 @@ run(duration)
 #print curr_spike_filt4
 #print curr_spike_sum
 #print spike_mid16.count
-print numpy.array(spike_sum.count).tolist()
-print numpy.array(spike_mid16.count).tolist()
+#print numpy.array(spike_sum.count).tolist()
+#print numpy.array(spike_mid16.count).tolist()
 
 
 
 #weightsout=numpy.array(weightsout)
 myshapepercent=(numpy.array(spike_shape16.count).astype(float).tolist()/(sum(spike_shape16.count)))
-
-
-print numpy.array(spike_shape16.count).tolist(), myshapepercent
-
-
+myerror=((myshapepercent[0]-idealans[0])**2+(myshapepercent[1]-idealans[1])**2+(myshapepercent[2]-idealans[2])**2) ## for triangle
+print numpy.array(spike_shape16.count).tolist(), myshapepercent, int(100*myerror)
 
 
 
@@ -368,11 +366,11 @@ print numpy.array(spike_shape16.count).tolist(), myshapepercent
 #    axis([0,1000,-80,30])
 
 #print "figure 10 shows the final answer neurons (not ready yet)"
-figure(10)
-for x in range(0,3):
-    subplot(1,3,(x+1))
-    plot(Mshape.t/ms, Mshape.v[x])
-    axis([0,1000,-80,30])
+#figure(10)
+#for x in range(0,3):
+#    subplot(1,3,(x+1))
+#    plot(Mshape.t/ms, Mshape.v[x])
+#    axis([0,1000,-80,30])
     
 
 
